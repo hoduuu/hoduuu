@@ -77,6 +77,9 @@ export function openNoteWindow(store: NoteStore, id: string): void {
   // never fire on Linux. `move`/`resize` fire on every platform but fire continuously during a
   // drag, so debounce the persistence and read both position and size together via getBounds().
   const persistBounds = debounce(() => {
+    // The window may have been destroyed (e.g. its note deleted from the list) while this
+    // debounced write was still pending. getBounds() on a destroyed BrowserWindow throws.
+    if (win.isDestroyed()) return;
     const { x, y, width, height } = win.getBounds();
     persistNoteUpdate(store, id, { position: { x, y }, size: { width, height } });
   }, 300);
