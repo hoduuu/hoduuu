@@ -1,0 +1,14 @@
+appId: com.hoduuu.stickynotes
+productName: StickyNotes
+files:
+  - out/**/*
+directories:
+  buildResources: build
+mac:
+  target: dmg
+  category: public.app-category.productivity
+win:
+  target: nsis
+linux:
+  target: AppImage
+  category: Utility
