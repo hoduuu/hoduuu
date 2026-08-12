@@ -61,7 +61,7 @@ function withSaveErrorHandling<T>(event: IpcMainInvokeEvent, fn: () => T): T | n
 // Translate that specific case into a readable, permission-oriented message; every other
 // error still passes its real `.message` through unchanged (e.g. ENOSPC, which is not in
 // atomically's retriable list and already surfaces a proper message today).
-function toReadableErrorMessage(error: unknown): string {
+export function toReadableErrorMessage(error: unknown): string {
   if (error instanceof RangeError && error.message.includes('call stack')) {
     return '파일에 쓸 수 없습니다 (권한을 확인해주세요)';
   }
