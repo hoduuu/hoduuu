@@ -47,10 +47,25 @@ function withSaveErrorHandling<T>(event: IpcMainInvokeEvent, fn: () => T): T | n
   try {
     return fn();
   } catch (error) {
-    const message = error instanceof Error ? error.message : String(error);
+    const message = toReadableErrorMessage(error);
     event.sender.send(IPC_CHANNELS.SAVE_ERROR, `저장 실패: ${message}`);
     return null;
   }
+}
+
+// The `atomically` package (a transitive dependency of electron-store) retries certain
+// synchronous write failures (EPERM/EACCES/EAGAIN/EBUSY/EMFILE/ENFILE) via unthrottled
+// recursion. When the failure is immediate and persistent (e.g. a read-only/immutable
+// file), this blows the JS call stack before the retry timeout elapses, surfacing a
+// confusing "Maximum call stack size exceeded" RangeError instead of the real cause.
+// Translate that specific case into a readable, permission-oriented message; every other
+// error still passes its real `.message` through unchanged (e.g. ENOSPC, which is not in
+// atomically's retriable list and already surfaces a proper message today).
+function toReadableErrorMessage(error: unknown): string {
+  if (error instanceof RangeError && error.message.includes('call stack')) {
+    return '파일에 쓸 수 없습니다 (권한을 확인해주세요)';
+  }
+  return error instanceof Error ? error.message : String(error);
 }
 
 function broadcastChanged(store: NoteStore): void {
