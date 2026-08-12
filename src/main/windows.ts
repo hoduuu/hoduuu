@@ -9,6 +9,11 @@ const TRAY_ICON_PNG_BASE64 =
 const noteWindows = new Map<string, BrowserWindow>();
 let listWindow: BrowserWindow | null = null;
 let tray: Tray | null = null;
+let isQuitting = false;
+
+app.on('before-quit', () => {
+  isQuitting = true;
+});
 
 export function createListWindow(): BrowserWindow {
   if (listWindow) {
@@ -52,6 +57,7 @@ export function openNoteWindow(store: NoteStore, id: string): void {
   loadRendererPage(win, 'note');
 
   win.on('close', (event) => {
+    if (isQuitting) return;
     event.preventDefault();
     win.hide();
     store.updateNote(id, { isOpen: false });

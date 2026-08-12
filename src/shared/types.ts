@@ -13,9 +13,9 @@ export interface StickyNote {
 
 export interface NotesAPI {
   getAll: () => Promise<StickyNote[]>;
-  create: (partial?: Partial<StickyNote>) => Promise<StickyNote>;
+  create: (partial?: Partial<StickyNote>) => Promise<StickyNote | null>;
   update: (id: string, changes: Partial<StickyNote>) => Promise<StickyNote | null>;
-  remove: (id: string) => Promise<boolean>;
+  remove: (id: string) => Promise<boolean | null>;
   openNoteWindow: (id: string) => Promise<void>;
   onNotesChanged: (callback: (notes: StickyNote[]) => void) => () => void;
   onSaveError: (callback: (message: string) => void) => () => void;
