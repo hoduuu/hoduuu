@@ -1,0 +1,6 @@
+.note-app { display: flex; flex-direction: column; height: 100vh; font-family: sans-serif; padding: 8px; box-sizing: border-box; }
+.note-app__toolbar { display: flex; gap: 6px; margin-bottom: 6px; }
+.note-app__swatch { width: 18px; height: 18px; border-radius: 50%; border: 1px solid rgba(0,0,0,0.2); }
+.note-app__pin.active { outline: 2px solid #333; }
+.note-app__content { flex: 1; resize: none; border: none; background: transparent; font-size: 14px; }
+.note-app__tags { border: none; background: rgba(255,255,255,0.6); padding: 4px; }
