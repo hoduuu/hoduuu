@@ -6,6 +6,7 @@ import {
   openNoteWindow,
   restoreOpenNoteWindows,
   setNoteAlwaysOnTop,
+  closeNoteWindow,
   createTray,
 } from './windows';
 
@@ -15,6 +16,7 @@ app.whenReady().then(() => {
   registerIpcHandlers(store, {
     openNoteWindow: (id) => openNoteWindow(store, id),
     setNoteAlwaysOnTop,
+    closeNoteWindow: (id) => closeNoteWindow(id),
   });
 
   createTray(() => createListWindow());

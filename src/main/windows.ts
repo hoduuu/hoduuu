@@ -88,6 +88,10 @@ export function setNoteAlwaysOnTop(id: string, value: boolean): void {
   noteWindows.get(id)?.setAlwaysOnTop(value);
 }
 
+export function closeNoteWindow(id: string): void {
+  noteWindows.get(id)?.destroy();
+}
+
 export function createTray(onOpenList: () => void): void {
   const icon = nativeImage.createFromBuffer(Buffer.from(TRAY_ICON_PNG_BASE64, 'base64'));
   tray = new Tray(icon);

@@ -6,6 +6,7 @@ import type { NoteStore } from './store';
 interface WindowCallbacks {
   openNoteWindow: (id: string) => void;
   setNoteAlwaysOnTop: (id: string, value: boolean) => void;
+  closeNoteWindow: (id: string) => void;
 }
 
 export function registerIpcHandlers(store: NoteStore, callbacks: WindowCallbacks): void {
@@ -33,6 +34,9 @@ export function registerIpcHandlers(store: NoteStore, callbacks: WindowCallbacks
   ipcMain.handle(IPC_CHANNELS.DELETE, (event, id: string) =>
     withSaveErrorHandling(event, () => {
       const removed = store.deleteNote(id);
+      if (removed) {
+        callbacks.closeNoteWindow(id);
+      }
       broadcastChanged(store);
       return removed;
     }),
