@@ -25,7 +25,11 @@ export function NoteApp() {
     });
     return window.notesAPI.onNotesChanged((notes) => {
       const found = notes.find((n) => n.id === noteId) ?? null;
-      if (found) setNote(found);
+      // Content is only ever edited via this window's own textarea (debounce-saved), so a
+      // broadcast echo of our own save (or a stale one racing a newer keystroke) must never
+      // overwrite local content — otherwise just-typed characters can be silently dropped.
+      // Every other field (color, tags, alwaysOnTop, ...) is authoritative from the broadcast.
+      if (found) setNote((prev) => (prev ? { ...found, content: prev.content } : found));
     });
   }, [noteId]);
 
