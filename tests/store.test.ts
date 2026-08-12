@@ -60,4 +60,32 @@ describe('createNoteStore', () => {
     expect(store.getAllNotes()).toEqual([]);
     expect(fs.existsSync(path.join(tmpDir, 'notes.json.bak'))).toBe(true);
   });
+
+  it('does not overwrite an existing backup on repeated corruption', () => {
+    const notesPath = path.join(tmpDir, 'notes.json');
+    const backupPath = `${notesPath}.bak`;
+
+    fs.writeFileSync(notesPath, '{ first corruption');
+    createNoteStore(tmpDir);
+    expect(fs.readFileSync(backupPath, 'utf-8')).toBe('{ first corruption');
+
+    // Second corruption happens against a fresh store file (the first recovery already
+    // reset notes.json to a valid empty store); corrupt it again and re-open.
+    fs.writeFileSync(notesPath, '{ second corruption');
+    const store = createNoteStore(tmpDir);
+
+    // The backup must still hold the FIRST corruption, not the second.
+    expect(fs.readFileSync(backupPath, 'utf-8')).toBe('{ first corruption');
+    // The store still recovers to a fresh, empty state after the second corruption.
+    expect(store.getAllNotes()).toEqual([]);
+  });
+
+  it('gives each created note its own size object (no shared-reference aliasing)', () => {
+    const store = createNoteStore(tmpDir);
+    const noteA = store.createNote({ content: 'a' });
+    const noteB = store.createNote({ content: 'b' });
+    expect(noteA.size).toEqual({ width: 240, height: 240 });
+    expect(noteB.size).toEqual({ width: 240, height: 240 });
+    expect(noteA.size).not.toBe(noteB.size);
+  });
 });

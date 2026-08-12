@@ -29,7 +29,7 @@ export function createNoteStore(cwd: string) {
       color: partial.color ?? DEFAULT_COLOR,
       tags: partial.tags ?? [],
       position: partial.position ?? { x: 100, y: 100 },
-      size: partial.size ?? DEFAULT_SIZE,
+      size: partial.size ?? { ...DEFAULT_SIZE },
       alwaysOnTop: partial.alwaysOnTop ?? true,
       isOpen: partial.isOpen ?? true,
       createdAt: now,
@@ -66,7 +66,13 @@ function backupIfCorrupted(filePath: string): void {
   try {
     JSON.parse(fs.readFileSync(filePath, 'utf-8'));
   } catch {
-    fs.copyFileSync(filePath, `${filePath}.bak`);
+    const backupPath = `${filePath}.bak`;
+    // Never overwrite an existing backup: if corruption happens twice, the first backup is the
+    // user's only remaining recovery copy and must survive. Still remove the corrupted file
+    // either way so the store can initialize fresh.
+    if (!fs.existsSync(backupPath)) {
+      fs.copyFileSync(filePath, backupPath);
+    }
     fs.rmSync(filePath);
   }
 }

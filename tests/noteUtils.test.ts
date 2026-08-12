@@ -14,6 +14,11 @@ describe('normalizeTagInput', () => {
   it('drops empty entries and de-dupes', () => {
     expect(normalizeTagInput('#foo, , #foo')).toEqual(['foo']);
   });
+
+  it('de-dupes case-insensitively, keeping the first-seen casing', () => {
+    expect(normalizeTagInput('#Work, #work')).toEqual(['Work']);
+    expect(normalizeTagInput('#work, #Work, #WORK')).toEqual(['work']);
+  });
 });
 
 function makeNote(overrides: Partial<StickyNote>): StickyNote {
@@ -55,5 +60,10 @@ describe('collectAllTags', () => {
   it('returns sorted, de-duplicated tags across notes', () => {
     const notes = [makeNote({ tags: ['b', 'a'] }), makeNote({ tags: ['a', 'c'] })];
     expect(collectAllTags(notes)).toEqual(['a', 'b', 'c']);
+  });
+
+  it('de-dupes tags case-insensitively, keeping the first-seen casing', () => {
+    const notes = [makeNote({ tags: ['Work'] }), makeNote({ tags: ['work', 'WORK'] })];
+    expect(collectAllTags(notes)).toEqual(['Work']);
   });
 });
