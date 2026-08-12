@@ -7,10 +7,15 @@ export function ListApp() {
   const [notes, setNotes] = useState<StickyNote[]>([]);
   const [query, setQuery] = useState('');
   const [activeTag, setActiveTag] = useState<string | null>(null);
+  const [saveError, setSaveError] = useState<string | null>(null);
 
   useEffect(() => {
     window.notesAPI.getAll().then(setNotes);
     return window.notesAPI.onNotesChanged(setNotes);
+  }, []);
+
+  useEffect(() => {
+    return window.notesAPI.onSaveError(setSaveError);
   }, []);
 
   const visibleNotes = useMemo(() => {
@@ -32,6 +37,12 @@ export function ListApp() {
 
   return (
     <div className="list-app">
+      {saveError && (
+        <div className="list-app__error-banner">
+          {saveError}
+          <button onClick={() => setSaveError(null)}>닫기</button>
+        </div>
+      )}
       <header className="list-app__header">
         <input
           className="list-app__search"

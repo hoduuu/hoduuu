@@ -4,3 +4,13 @@
 .note-app__pin.active { outline: 2px solid #333; }
 .note-app__content { flex: 1; resize: none; border: none; background: transparent; font-size: 14px; }
 .note-app__tags { border: none; background: rgba(255,255,255,0.6); padding: 4px; }
+
+.list-app__error-banner,
+.note-app__error-banner {
+  background: #ffebee;
+  color: #c62828;
+  padding: 6px 8px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+}

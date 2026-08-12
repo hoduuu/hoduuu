@@ -10,11 +10,16 @@ export function NoteApp() {
   const noteId = window.noteId;
   const [note, setNote] = useState<StickyNote | null>(null);
   const [tagInput, setTagInput] = useState('');
+  const [saveError, setSaveError] = useState<string | null>(null);
   const saveContent = useRef(
     debounce((id: string, content: string) => {
       window.notesAPI.update(id, { content });
     }, 500),
   );
+
+  useEffect(() => {
+    return window.notesAPI.onSaveError(setSaveError);
+  }, []);
 
   useEffect(() => {
     if (!noteId) return;
@@ -59,6 +64,12 @@ export function NoteApp() {
 
   return (
     <div className="note-app" style={{ backgroundColor: note.color }}>
+      {saveError && (
+        <div className="note-app__error-banner">
+          {saveError}
+          <button onClick={() => setSaveError(null)}>닫기</button>
+        </div>
+      )}
       <div className="note-app__toolbar">
         {COLORS.map((color) => (
           <button
