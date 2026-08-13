@@ -6,8 +6,7 @@ html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; }
 .list-app__titlebar {
   display: flex;
   align-items: center;
-  height: 24px;
-  padding: 0 4px;
+  padding: 8px 8px;
   flex-shrink: 0;
   -webkit-app-region: drag;
 }
@@ -18,8 +17,8 @@ html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; }
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 22px;
-  height: 22px;
+  width: 28px;
+  height: 28px;
   padding: 0;
   border: none;
   border-radius: 50%;
@@ -34,34 +33,22 @@ html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; }
   top: calc(100% + 4px);
   right: 0;
   z-index: 5;
-  width: 130px;
-  max-height: 200px;
-  overflow-y: auto;
-  background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
-  padding: 6px;
   display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-.list-app__settings-section { display: flex; flex-direction: column; gap: 1px; }
-.list-app__settings-label {
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  color: rgba(0, 0, 0, 0.4);
-  padding: 2px 6px 1px;
+  gap: 4px;
+  background: #fff;
+  border-radius: 999px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  padding: 4px;
 }
 .list-app__settings-option {
-  text-align: left;
   border: none;
   background: transparent;
-  border-radius: 5px;
-  padding: 4px 6px;
+  border-radius: 999px;
+  padding: 4px 10px;
   font-size: 12px;
   color: #333;
   cursor: pointer;
+  white-space: nowrap;
 }
 .list-app__settings-option:hover { background: rgba(0, 0, 0, 0.06); }
 .list-app__settings-option.active { background: rgba(0, 0, 0, 0.08); font-weight: 700; }
@@ -70,14 +57,14 @@ html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; }
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 22px;
-  height: 22px;
+  width: 28px;
+  height: 28px;
   padding: 0;
   border: none;
   border-radius: 50%;
   background: transparent;
   color: rgba(0, 0, 0, 0.55);
-  font-size: 15px;
+  font-size: 18px;
   line-height: 1;
   cursor: pointer;
   -webkit-app-region: no-drag;
@@ -93,6 +80,7 @@ html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; }
   padding: 6px 8px;
   box-sizing: border-box;
   font: inherit;
+  font-size: var(--list-font-size, 14px);
 }
 .list-app__search:focus { outline: 2px solid rgba(0, 0, 0, 0.15); }
 
@@ -117,7 +105,9 @@ html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; }
   font-size: 12px;
   background: #eee;
   cursor: pointer;
+  transition: filter 0.1s ease;
 }
+.list-app__tags button:hover { filter: brightness(0.93); }
 .list-app__tags button.active { font-weight: bold; border-color: transparent; }
 
 .list-app__notes {
@@ -186,7 +176,7 @@ html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; }
 }
 
 .list-app__note-content {
-  font-size: 14px;
+  font-size: var(--list-font-size, 14px);
   display: -webkit-box;
   -webkit-line-clamp: 5;
   -webkit-box-orient: vertical;
@@ -198,13 +188,14 @@ html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; }
 .list-app__note-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
 .list-app__note-tag {
   font-size: 11px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
   border-radius: 999px;
-  padding: 1px 8px;
+  padding: 3px 10px;
 }
 .list-app__note-tag-more {
   font-size: 11px;
   border-radius: 999px;
-  padding: 1px 8px;
+  padding: 3px 10px;
   background: rgba(0, 0, 0, 0.08);
   color: rgba(0, 0, 0, 0.6);
   cursor: pointer;

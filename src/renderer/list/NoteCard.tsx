@@ -3,7 +3,7 @@ import type { StickyNote } from '../../shared/types';
 import { formatNoteDate } from '../../shared/noteUtils';
 import { getDarkColor } from '../../shared/noteColors';
 
-const MAX_VISIBLE_TAGS = 3;
+const MAX_VISIBLE_TAGS = 7;
 
 interface NoteCardProps {
   note: StickyNote;
@@ -48,7 +48,7 @@ export function NoteCard({ note, tagColors, onOpen, onDelete }: NoteCardProps) {
                 setTagsExpanded(true);
               }}
             >
-              +{hiddenCount} 더보기
+              ...
             </span>
           )}
         </span>

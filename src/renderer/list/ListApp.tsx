@@ -1,12 +1,13 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
+import type { CSSProperties } from 'react';
 import type { AppSettings, StickyNote } from '../../shared/types';
 import { filterNotes, collectAllTags, collectTagColors } from '../../shared/noteUtils';
 import { getDarkColor } from '../../shared/noteColors';
-import { FONT_FAMILIES, FONT_SIZES } from '../../shared/fonts';
+import { FONT_SIZE_OPTIONS } from '../../shared/fonts';
 import { NoteCard } from './NoteCard';
 import './ListApp.css';
 
-const DEFAULT_SETTINGS: AppSettings = { fontFamily: 'sans-serif', fontSize: 14 };
+const DEFAULT_SETTINGS: AppSettings = { listFontSize: 18 };
 
 export function ListApp() {
   const [notes, setNotes] = useState<StickyNote[]>([]);
@@ -73,16 +74,14 @@ export function ListApp() {
     await window.notesAPI.remove(id);
   }
 
-  function handleFontFamilyChange(fontFamily: string) {
-    window.notesAPI.updateSettings({ fontFamily });
+  function handleListFontSizeChange(listFontSize: number) {
+    window.notesAPI.updateSettings({ listFontSize });
   }
 
-  function handleFontSizeChange(fontSize: number) {
-    window.notesAPI.updateSettings({ fontSize });
-  }
+  const listStyle = { '--list-font-size': `${settings.listFontSize}px` } as CSSProperties;
 
   return (
-    <div className="list-app">
+    <div className="list-app" style={listStyle}>
       <div className="list-app__titlebar">
         <div className="list-app__titlebar-drag" />
         <div className="list-app__settings-widget" ref={settingsWidgetRef}>
@@ -90,9 +89,9 @@ export function ListApp() {
             className="list-app__settings-toggle"
             onClick={() => setSettingsPopoverOpen((open) => !open)}
             aria-expanded={settingsPopoverOpen}
-            title="글씨체/크기 설정"
+            title="글씨 크기"
           >
-            <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
               <path
                 d="M12 8.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Zm8.4 3.5a7.97 7.97 0 0 0-.15-1.5l2.02-1.58-2-3.46-2.38.96a8.05 8.05 0 0 0-2.6-1.5L14.9 2h-4l-.39 2.42a8.05 8.05 0 0 0-2.6 1.5l-2.38-.96-2 3.46 2.02 1.58a7.97 7.97 0 0 0 0 3l-2.02 1.58 2 3.46 2.38-.96c.77.66 1.65 1.17 2.6 1.5L10.9 22h4l.39-2.42a8.05 8.05 0 0 0 2.6-1.5l2.38.96 2-3.46-2.02-1.58c.1-.49.15-.99.15-1.5Z"
                 fill="none"
@@ -104,30 +103,15 @@ export function ListApp() {
           </button>
           {settingsPopoverOpen && (
             <div className="list-app__settings-popover">
-              <div className="list-app__settings-section">
-                <span className="list-app__settings-label">글씨체</span>
-                {FONT_FAMILIES.map((font) => (
-                  <button
-                    key={font.value}
-                    className={`list-app__settings-option ${settings.fontFamily === font.value ? 'active' : ''}`}
-                    onClick={() => handleFontFamilyChange(font.value)}
-                  >
-                    {font.label}
-                  </button>
-                ))}
-              </div>
-              <div className="list-app__settings-section">
-                <span className="list-app__settings-label">크기</span>
-                {FONT_SIZES.map((size) => (
-                  <button
-                    key={size}
-                    className={`list-app__settings-option ${settings.fontSize === size ? 'active' : ''}`}
-                    onClick={() => handleFontSizeChange(size)}
-                  >
-                    {size}px
-                  </button>
-                ))}
-              </div>
+              {FONT_SIZE_OPTIONS.map((option) => (
+                <button
+                  key={option.value}
+                  className={`list-app__settings-option ${settings.listFontSize === option.value ? 'active' : ''}`}
+                  onClick={() => handleListFontSizeChange(option.value)}
+                >
+                  {option.label}
+                </button>
+              ))}
             </div>
           )}
         </div>
