@@ -88,8 +88,8 @@ describe('createNoteStore', () => {
     const store = createNoteStore(tmpDir);
     const noteA = store.createNote({ content: 'a' });
     const noteB = store.createNote({ content: 'b' });
-    expect(noteA.size).toEqual({ width: 240, height: 240 });
-    expect(noteB.size).toEqual({ width: 240, height: 240 });
+    expect(noteA.size).toEqual({ width: 300, height: 240 });
+    expect(noteB.size).toEqual({ width: 300, height: 240 });
     expect(noteA.size).not.toBe(noteB.size);
   });
 

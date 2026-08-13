@@ -10,7 +10,7 @@ interface NotesSchema {
   settings: AppSettings;
 }
 
-const DEFAULT_SIZE = { width: 240, height: 240 };
+const DEFAULT_SIZE = { width: 300, height: 240 };
 const DEFAULT_COLOR = '#FFF59D';
 const DEFAULT_FONT_SIZE = 18;
 

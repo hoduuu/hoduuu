@@ -179,7 +179,13 @@ export function NoteApp() {
           </div>
           <button
             className="note-app__close"
-            onClick={() => window.notesAPI.closeCurrentWindow()}
+            onClick={async () => {
+              // Flush the debounced content save synchronously before closing: main decides
+              // whether to delete an empty-content note on close, so the store must reflect
+              // the latest keystrokes before that check runs (see deleteNoteIfEmpty).
+              await window.notesAPI.update(note!.id, { content: note!.content });
+              await window.notesAPI.closeCurrentWindow();
+            }}
             title="닫기"
           >
             ×
