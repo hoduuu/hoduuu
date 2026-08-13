@@ -21,7 +21,7 @@ app.on('before-quit', () => {
   isQuitting = true;
 });
 
-export function createListWindow(): BrowserWindow {
+export function createListWindow(initialAlwaysOnTop: boolean): BrowserWindow {
   if (listWindow) {
     listWindow.show();
     listWindow.focus();
@@ -32,6 +32,7 @@ export function createListWindow(): BrowserWindow {
     height: 600,
     minWidth: 240,
     minHeight: 300,
+    alwaysOnTop: initialAlwaysOnTop,
     frame: false,
     webPreferences: { preload: join(__dirname, '../preload/index.js') },
   });
@@ -105,6 +106,10 @@ export function restoreOpenNoteWindows(store: NoteStore): void {
 
 export function setNoteAlwaysOnTop(id: string, value: boolean): void {
   noteWindows.get(id)?.setAlwaysOnTop(value);
+}
+
+export function setListAlwaysOnTop(value: boolean): void {
+  listWindow?.setAlwaysOnTop(value);
 }
 
 export function closeNoteWindow(id: string): void {

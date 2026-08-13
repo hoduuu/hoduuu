@@ -13,6 +13,7 @@ interface NotesSchema {
 const DEFAULT_SIZE = { width: 300, height: 240 };
 const DEFAULT_COLOR = '#FFF59D';
 const DEFAULT_FONT_SIZE = 18;
+const DEFAULT_LIST_ALWAYS_ON_TOP = false;
 
 export function createNoteStore(cwd: string) {
   const filePath = path.join(cwd, 'notes.json');
@@ -23,7 +24,7 @@ export function createNoteStore(cwd: string) {
     cwd,
     defaults: {
       notes: [],
-      settings: { listFontSize: DEFAULT_FONT_SIZE },
+      settings: { listFontSize: DEFAULT_FONT_SIZE, listAlwaysOnTop: DEFAULT_LIST_ALWAYS_ON_TOP },
     },
   });
 
@@ -44,6 +45,9 @@ export function createNoteStore(cwd: string) {
       (FONT_SIZES as number[]).includes(changes.listFontSize)
     ) {
       validated.listFontSize = changes.listFontSize;
+    }
+    if (typeof changes.listAlwaysOnTop === 'boolean') {
+      validated.listAlwaysOnTop = changes.listAlwaysOnTop;
     }
     const updated = { ...getSettings(), ...validated };
     store.set('settings', updated);

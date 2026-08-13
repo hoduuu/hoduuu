@@ -6,6 +6,7 @@ import {
   openNoteWindow,
   restoreOpenNoteWindows,
   setNoteAlwaysOnTop,
+  setListAlwaysOnTop,
   closeNoteWindow,
   createTray,
 } from './windows';
@@ -16,18 +17,21 @@ app.whenReady().then(() => {
   registerIpcHandlers(store, {
     openNoteWindow: (id) => openNoteWindow(store, id),
     openListWindow: () => {
-      createListWindow();
+      createListWindow(store.getSettings().listAlwaysOnTop);
     },
     setNoteAlwaysOnTop,
+    setListAlwaysOnTop,
     closeNoteWindow: (id) => closeNoteWindow(id),
   });
 
-  createTray(() => createListWindow());
-  createListWindow();
+  createTray(() => createListWindow(store.getSettings().listAlwaysOnTop));
+  createListWindow(store.getSettings().listAlwaysOnTop);
   restoreOpenNoteWindows(store);
 
   app.on('activate', () => {
-    if (BrowserWindow.getAllWindows().length === 0) createListWindow();
+    if (BrowserWindow.getAllWindows().length === 0) {
+      createListWindow(store.getSettings().listAlwaysOnTop);
+    }
   });
 });
 
