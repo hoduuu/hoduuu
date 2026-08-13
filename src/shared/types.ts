@@ -13,14 +13,23 @@ export interface StickyNote {
   updatedAt: number;
 }
 
+export interface AppSettings {
+  fontFamily: string;
+  fontSize: number;
+}
+
 export interface NotesAPI {
   getAll: () => Promise<StickyNote[]>;
   create: (partial?: Partial<StickyNote>) => Promise<StickyNote | null>;
   update: (id: string, changes: Partial<StickyNote>) => Promise<StickyNote | null>;
   remove: (id: string) => Promise<boolean | null>;
   openNoteWindow: (id: string) => Promise<void>;
+  openListWindow: () => Promise<void>;
+  getSettings: () => Promise<AppSettings>;
+  updateSettings: (changes: Partial<AppSettings>) => Promise<AppSettings | null>;
   onNotesChanged: (callback: (notes: StickyNote[]) => void) => () => void;
   onSaveError: (callback: (message: string) => void) => () => void;
+  onSettingsChanged: (callback: (settings: AppSettings) => void) => () => void;
 }
 
 export const IPC_CHANNELS = {
@@ -29,8 +38,12 @@ export const IPC_CHANNELS = {
   UPDATE: 'notes:update',
   DELETE: 'notes:delete',
   OPEN_WINDOW: 'notes:openWindow',
+  OPEN_LIST: 'notes:openList',
   CHANGED: 'notes:changed',
   SAVE_ERROR: 'notes:saveError',
+  GET_SETTINGS: 'settings:get',
+  UPDATE_SETTINGS: 'settings:update',
+  SETTINGS_CHANGED: 'settings:changed',
 } as const;
 
 declare global {
