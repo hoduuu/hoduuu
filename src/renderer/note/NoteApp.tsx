@@ -1,15 +1,22 @@
 import { useEffect, useRef, useState } from 'react';
 import type { StickyNote } from '../../shared/types';
-import { normalizeTagInput } from '../../shared/noteUtils';
+import { addTag } from '../../shared/noteUtils';
 import { debounce } from '../../shared/debounce';
 import './NoteApp.css';
 
 const COLORS = ['#FFF59D', '#FFCCBC', '#C8E6C9', '#B3E5FC', '#E1BEE7'];
+const FONT_FAMILIES = [
+  { label: '기본', value: 'sans-serif' },
+  { label: '명조', value: 'serif' },
+  { label: '고정폭', value: 'monospace' },
+  { label: '손글씨', value: 'cursive' },
+];
+const FONT_SIZES = [12, 14, 16, 18, 22];
 
 export function NoteApp() {
   const noteId = window.noteId;
   const [note, setNote] = useState<StickyNote | null>(null);
-  const [tagInput, setTagInput] = useState('');
+  const [tagDraft, setTagDraft] = useState('');
   const [saveError, setSaveError] = useState<string | null>(null);
   const saveContent = useRef(
     debounce((id: string, content: string) => {
@@ -26,7 +33,6 @@ export function NoteApp() {
     window.notesAPI.getAll().then((notes) => {
       const found = notes.find((n) => n.id === noteId) ?? null;
       setNote(found);
-      setTagInput(found ? found.tags.map((t) => `#${t}`).join(' ') : '');
     });
     return window.notesAPI.onNotesChanged((notes) => {
       const found = notes.find((n) => n.id === noteId) ?? null;
@@ -50,8 +56,26 @@ export function NoteApp() {
     window.notesAPI.update(note!.id, { color });
   }
 
-  function handleTagInputBlur() {
-    const tags = normalizeTagInput(tagInput);
+  function handleFontFamilyChange(fontFamily: string) {
+    setNote((prev) => (prev ? { ...prev, fontFamily } : prev));
+    window.notesAPI.update(note!.id, { fontFamily });
+  }
+
+  function handleFontSizeChange(fontSize: number) {
+    setNote((prev) => (prev ? { ...prev, fontSize } : prev));
+    window.notesAPI.update(note!.id, { fontSize });
+  }
+
+  function handleAddTag() {
+    const tags = addTag(note!.tags, tagDraft);
+    setTagDraft('');
+    if (tags === note!.tags) return;
+    setNote((prev) => (prev ? { ...prev, tags } : prev));
+    window.notesAPI.update(note!.id, { tags });
+  }
+
+  function handleRemoveTag(tag: string) {
+    const tags = note!.tags.filter((t) => t !== tag);
     setNote((prev) => (prev ? { ...prev, tags } : prev));
     window.notesAPI.update(note!.id, { tags });
   }
@@ -71,33 +95,88 @@ export function NoteApp() {
         </div>
       )}
       <div className="note-app__toolbar">
-        {COLORS.map((color) => (
-          <button
-            key={color}
-            className="note-app__swatch"
-            style={{ backgroundColor: color }}
-            onClick={() => handleColorChange(color)}
-          />
-        ))}
+        <div className="note-app__toolbar-group">
+          {COLORS.map((color) => (
+            <button
+              key={color}
+              className={`note-app__swatch ${note.color === color ? 'active' : ''}`}
+              style={{ backgroundColor: color }}
+              onClick={() => handleColorChange(color)}
+            />
+          ))}
+          <select
+            className="note-app__font-select"
+            value={note.fontFamily}
+            onChange={(event) => handleFontFamilyChange(event.target.value)}
+            title="글씨체"
+          >
+            {FONT_FAMILIES.map((font) => (
+              <option key={font.value} value={font.value}>
+                {font.label}
+              </option>
+            ))}
+          </select>
+          <select
+            className="note-app__font-select"
+            value={note.fontSize}
+            onChange={(event) => handleFontSizeChange(Number(event.target.value))}
+            title="글자 크기"
+          >
+            {FONT_SIZES.map((size) => (
+              <option key={size} value={size}>
+                {size}px
+              </option>
+            ))}
+          </select>
+        </div>
         <button
           className={`note-app__pin ${note.alwaysOnTop ? 'active' : ''}`}
           onClick={handleAlwaysOnTopToggle}
+          title="항상 위에 고정"
         >
-          📌
+          <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+            <path
+              d="M14.5 2.5 21.5 9.5 19 12l-2-.5-4 4 .5 5-1.5 1.5-4-4L3 22l4-4-4-4 1.5-1.5 5 .5 4-4-.5-2Z"
+              fill={note.alwaysOnTop ? 'currentColor' : 'none'}
+              stroke="currentColor"
+              strokeWidth="1.6"
+              strokeLinejoin="round"
+            />
+          </svg>
         </button>
       </div>
       <textarea
         className="note-app__content"
+        style={{ fontFamily: note.fontFamily, fontSize: note.fontSize }}
         value={note.content}
         onChange={(event) => handleContentChange(event.target.value)}
       />
-      <input
-        className="note-app__tags"
-        placeholder="#태그 입력"
-        value={tagInput}
-        onChange={(event) => setTagInput(event.target.value)}
-        onBlur={handleTagInputBlur}
-      />
+      <div className="note-app__tags">
+        {note.tags.map((tag) => (
+          <span key={tag} className="note-app__tag-pill">
+            #{tag}
+            <button onClick={() => handleRemoveTag(tag)} aria-label={`${tag} 태그 삭제`}>
+              ×
+            </button>
+          </span>
+        ))}
+        <div className="note-app__tag-input">
+          <input
+            placeholder="태그 입력"
+            value={tagDraft}
+            onChange={(event) => setTagDraft(event.target.value)}
+            onKeyDown={(event) => {
+              if (event.key === 'Enter') {
+                event.preventDefault();
+                handleAddTag();
+              }
+            }}
+          />
+          <button onClick={handleAddTag} aria-label="태그 추가">
+            +
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

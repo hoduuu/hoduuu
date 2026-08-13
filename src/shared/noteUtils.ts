@@ -14,6 +14,31 @@ export function normalizeTagInput(raw: string): string[] {
   return result;
 }
 
+export function addTag(tags: string[], raw: string): string[] {
+  const tag = raw.trim().replace(/^#/, '');
+  if (tag.length === 0) return tags;
+  if (tags.some((existing) => existing.toLowerCase() === tag.toLowerCase())) return tags;
+  return [...tags, tag];
+}
+
+function isSameDay(a: Date, b: Date): boolean {
+  return (
+    a.getFullYear() === b.getFullYear() &&
+    a.getMonth() === b.getMonth() &&
+    a.getDate() === b.getDate()
+  );
+}
+
+// Today's notes show date + time; once a note is no longer from today, the time is dropped
+// since it stops being meaningful at a glance and only the date remains useful.
+export function formatNoteDate(timestamp: number, now: number = Date.now()): string {
+  const created = new Date(timestamp);
+  const date = `${created.getFullYear()}.${String(created.getMonth() + 1).padStart(2, '0')}.${String(created.getDate()).padStart(2, '0')}`;
+  if (!isSameDay(created, new Date(now))) return date;
+  const time = `${String(created.getHours()).padStart(2, '0')}:${String(created.getMinutes()).padStart(2, '0')}`;
+  return `${date} ${time}`;
+}
+
 export function filterNotes(notes: StickyNote[], query: string): StickyNote[] {
   const trimmed = query.trim().toLowerCase();
   if (trimmed === '') return notes;

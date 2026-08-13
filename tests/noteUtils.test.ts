@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { normalizeTagInput, filterNotes, collectAllTags } from '../src/shared/noteUtils';
+import { normalizeTagInput, filterNotes, collectAllTags, addTag, formatNoteDate } from '../src/shared/noteUtils';
 import type { StickyNote } from '../src/shared/types';
 
 describe('normalizeTagInput', () => {
@@ -21,6 +21,34 @@ describe('normalizeTagInput', () => {
   });
 });
 
+describe('addTag', () => {
+  it('appends a stripped, trimmed tag', () => {
+    expect(addTag([], '  #foo  ')).toEqual(['foo']);
+  });
+
+  it('ignores an empty tag', () => {
+    expect(addTag(['foo'], '   ')).toEqual(['foo']);
+  });
+
+  it('does not add a case-insensitive duplicate', () => {
+    expect(addTag(['foo'], 'FOO')).toEqual(['foo']);
+  });
+});
+
+describe('formatNoteDate', () => {
+  it('shows date and time for a note created today', () => {
+    const now = new Date(2026, 7, 13, 15, 4).getTime();
+    const createdAt = new Date(2026, 7, 13, 9, 5).getTime();
+    expect(formatNoteDate(createdAt, now)).toBe('2026.08.13 09:05');
+  });
+
+  it('shows only the date once the note is no longer from today', () => {
+    const now = new Date(2026, 7, 13, 0, 30).getTime();
+    const createdAt = new Date(2026, 7, 12, 23, 59).getTime();
+    expect(formatNoteDate(createdAt, now)).toBe('2026.08.12');
+  });
+});
+
 function makeNote(overrides: Partial<StickyNote>): StickyNote {
   return {
     id: '1',
@@ -29,6 +57,8 @@ function makeNote(overrides: Partial<StickyNote>): StickyNote {
     tags: [],
     position: { x: 0, y: 0 },
     size: { width: 240, height: 240 },
+    fontFamily: 'sans-serif',
+    fontSize: 14,
     alwaysOnTop: true,
     isOpen: true,
     createdAt: 0,

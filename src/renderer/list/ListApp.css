@@ -1,13 +1,86 @@
+html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; }
+#root { height: 100%; }
+
 .list-app { display: flex; flex-direction: column; height: 100vh; font-family: sans-serif; }
 .list-app__header { display: flex; gap: 8px; padding: 8px; }
 .list-app__search { flex: 1; }
 .list-app__tags { display: flex; flex-wrap: wrap; gap: 4px; padding: 0 8px 8px; }
 .list-app__tags button.active { font-weight: bold; text-decoration: underline; }
-.list-app__notes { list-style: none; margin: 0; padding: 0; overflow-y: auto; }
-.list-app__notes li { display: flex; border-left: 6px solid; padding: 6px 8px; gap: 8px; }
-.list-app__note-open { flex: 1; display: flex; flex-direction: column; align-items: flex-start; text-align: left; }
-.list-app__note-content { font-size: 14px; }
-.list-app__note-tags { font-size: 12px; color: #666; }
+
+.list-app__notes {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.list-app__note {
+  display: flex;
+  flex-direction: column;
+  border-radius: 6px;
+  margin: 6px 8px;
+  overflow: hidden;
+}
+
+.list-app__note-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 6px 0;
+}
+.list-app__note-date { font-size: 10px; color: rgba(0, 0, 0, 0.55); }
+
+.list-app__note-delete {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: rgba(0, 0, 0, 0.5);
+  font-size: 14px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0;
+}
+.list-app__note-delete:hover { background: rgba(0, 0, 0, 0.12); color: rgba(0, 0, 0, 0.8); }
+
+.list-app__note-open {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  width: 100%;
+  border: none;
+  background: transparent;
+  padding: 4px 8px 8px;
+  box-sizing: border-box;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+}
+
+.list-app__note-content {
+  font-size: 14px;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.list-app__note-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
+.list-app__note-tag {
+  font-size: 11px;
+  border: 1px solid rgba(0, 0, 0, 0.18);
+  border-radius: 999px;
+  padding: 1px 8px;
+}
 
 .list-app__error-banner,
 .note-app__error-banner {

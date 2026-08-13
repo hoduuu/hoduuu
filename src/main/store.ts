@@ -10,6 +10,8 @@ interface NotesSchema {
 
 const DEFAULT_SIZE = { width: 240, height: 240 };
 const DEFAULT_COLOR = '#FFF59D';
+const DEFAULT_FONT_FAMILY = 'sans-serif';
+const DEFAULT_FONT_SIZE = 14;
 
 export function createNoteStore(cwd: string) {
   const filePath = path.join(cwd, 'notes.json');
@@ -30,6 +32,8 @@ export function createNoteStore(cwd: string) {
       tags: partial.tags ?? [],
       position: partial.position ?? { x: 100, y: 100 },
       size: partial.size ?? { ...DEFAULT_SIZE },
+      fontFamily: partial.fontFamily ?? DEFAULT_FONT_FAMILY,
+      fontSize: partial.fontSize ?? DEFAULT_FONT_SIZE,
       alwaysOnTop: partial.alwaysOnTop ?? true,
       isOpen: partial.isOpen ?? true,
       createdAt: now,

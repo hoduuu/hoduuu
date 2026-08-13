@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import type { StickyNote } from '../../shared/types';
-import { filterNotes, collectAllTags } from '../../shared/noteUtils';
+import { filterNotes, collectAllTags, formatNoteDate } from '../../shared/noteUtils';
 import './ListApp.css';
 
 export function ListApp() {
@@ -31,7 +31,6 @@ export function ListApp() {
   }
 
   async function handleDelete(id: string) {
-    if (!window.confirm('정말 삭제하시겠습니까?')) return;
     await window.notesAPI.remove(id);
   }
 
@@ -70,18 +69,33 @@ export function ListApp() {
 
       <ul className="list-app__notes">
         {visibleNotes.map((note) => (
-          <li key={note.id} style={{ borderLeftColor: note.color }}>
+          <li key={note.id} className="list-app__note" style={{ backgroundColor: note.color }}>
+            <div className="list-app__note-header">
+              <span className="list-app__note-date">{formatNoteDate(note.createdAt)}</span>
+              <button
+                className="list-app__note-delete"
+                onClick={() => handleDelete(note.id)}
+                aria-label="메모 삭제"
+              >
+                ×
+              </button>
+            </div>
             <button
               className="list-app__note-open"
               onClick={() => window.notesAPI.openNoteWindow(note.id)}
             >
               <span className="list-app__note-content">{note.content || '(빈 메모)'}</span>
               <span className="list-app__note-tags">
-                {note.tags.map((tag) => `#${tag}`).join(' ')}
+                {note.tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="list-app__note-tag"
+                    style={{ backgroundColor: note.color }}
+                  >
+                    #{tag}
+                  </span>
+                ))}
               </span>
-            </button>
-            <button className="list-app__note-delete" onClick={() => handleDelete(note.id)}>
-              삭제
             </button>
           </li>
         ))}
