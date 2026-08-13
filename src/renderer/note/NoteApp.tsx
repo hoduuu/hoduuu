@@ -18,6 +18,8 @@ export function NoteApp() {
   const [note, setNote] = useState<StickyNote | null>(null);
   const [tagDraft, setTagDraft] = useState('');
   const [saveError, setSaveError] = useState<string | null>(null);
+  const [fontPopoverOpen, setFontPopoverOpen] = useState(false);
+  const fontWidgetRef = useRef<HTMLDivElement>(null);
   const saveContent = useRef(
     debounce((id: string, content: string) => {
       window.notesAPI.update(id, { content });
@@ -27,6 +29,22 @@ export function NoteApp() {
   useEffect(() => {
     return window.notesAPI.onSaveError(setSaveError);
   }, []);
+
+  useEffect(() => {
+    if (!fontPopoverOpen) return;
+    function handlePointerDown(event: MouseEvent) {
+      if (!fontWidgetRef.current?.contains(event.target as Node)) setFontPopoverOpen(false);
+    }
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === 'Escape') setFontPopoverOpen(false);
+    }
+    document.addEventListener('mousedown', handlePointerDown);
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.removeEventListener('mousedown', handlePointerDown);
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [fontPopoverOpen]);
 
   useEffect(() => {
     if (!noteId) return;
@@ -104,30 +122,44 @@ export function NoteApp() {
               onClick={() => handleColorChange(color)}
             />
           ))}
-          <select
-            className="note-app__font-select"
-            value={note.fontFamily}
-            onChange={(event) => handleFontFamilyChange(event.target.value)}
-            title="글씨체"
-          >
-            {FONT_FAMILIES.map((font) => (
-              <option key={font.value} value={font.value}>
-                {font.label}
-              </option>
-            ))}
-          </select>
-          <select
-            className="note-app__font-select"
-            value={note.fontSize}
-            onChange={(event) => handleFontSizeChange(Number(event.target.value))}
-            title="글자 크기"
-          >
-            {FONT_SIZES.map((size) => (
-              <option key={size} value={size}>
-                {size}px
-              </option>
-            ))}
-          </select>
+          <div className="note-app__font-widget" ref={fontWidgetRef}>
+            <button
+              className="note-app__font-toggle"
+              onClick={() => setFontPopoverOpen((open) => !open)}
+              aria-expanded={fontPopoverOpen}
+              title="글씨체/크기"
+            >
+              Aa
+            </button>
+            {fontPopoverOpen && (
+              <div className="note-app__font-popover">
+                <div className="note-app__font-popover-section">
+                  <span className="note-app__font-popover-label">글씨체</span>
+                  {FONT_FAMILIES.map((font) => (
+                    <button
+                      key={font.value}
+                      className={`note-app__font-option ${note.fontFamily === font.value ? 'active' : ''}`}
+                      onClick={() => handleFontFamilyChange(font.value)}
+                    >
+                      {font.label}
+                    </button>
+                  ))}
+                </div>
+                <div className="note-app__font-popover-section">
+                  <span className="note-app__font-popover-label">크기</span>
+                  {FONT_SIZES.map((size) => (
+                    <button
+                      key={size}
+                      className={`note-app__font-option ${note.fontSize === size ? 'active' : ''}`}
+                      onClick={() => handleFontSizeChange(size)}
+                    >
+                      {size}px
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
         </div>
         <button
           className={`note-app__pin ${note.alwaysOnTop ? 'active' : ''}`}
