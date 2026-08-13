@@ -33,7 +33,19 @@ export function createNoteStore(cwd: string) {
   }
 
   function getSettings(): AppSettings {
-    return store.get('settings');
+    // electron-store's defaults-merge is shallow at the top level: if 'settings' already
+    // exists on disk (e.g. from before listAlwaysOnTop shipped), the persisted object wins
+    // entirely and new fields are never merged in. Backfill from the module defaults so a
+    // field missing from an old on-disk settings object falls back rather than being undefined.
+    // Cast to Partial: the whole point of this backfill is that persisted data from an
+    // older version of the app may not actually satisfy the full AppSettings shape, even
+    // though the schema's static type says it always does.
+    const persisted = store.get('settings') as Partial<AppSettings>;
+    return {
+      listFontSize: DEFAULT_FONT_SIZE,
+      listAlwaysOnTop: DEFAULT_LIST_ALWAYS_ON_TOP,
+      ...persisted,
+    };
   }
 
   function updateSettings(changes: Partial<AppSettings>): AppSettings {

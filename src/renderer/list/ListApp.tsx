@@ -113,6 +113,7 @@ export function ListApp() {
           >
             <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
               <circle cx="12" cy="12" r="3.4" fill="none" stroke="currentColor" strokeWidth="1.6" />
+              <circle cx="12" cy="12" r="7.4" fill="none" stroke="currentColor" strokeWidth="1.6" />
               {GEAR_TOOTH_ANGLES.map((deg) => (
                 <rect
                   key={deg}

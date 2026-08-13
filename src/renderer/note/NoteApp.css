@@ -9,6 +9,7 @@ html, body { margin: 0; padding: 0; height: 100%; }
   font-family: 'Dotum', '돋움', sans-serif;
   overflow: hidden;
 }
+button, input, textarea { font-family: inherit; }
 .note-app--loading { padding: 8px; }
 
 .note-app__toolbar {

@@ -2,6 +2,7 @@ html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; }
 #root { height: 100%; }
 
 .list-app { display: flex; flex-direction: column; height: 100vh; font-family: 'Dotum', '돋움', sans-serif; }
+button, input, textarea { font-family: inherit; }
 
 .list-app__titlebar {
   display: flex;
@@ -28,7 +29,7 @@ html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; }
   -webkit-app-region: no-drag;
 }
 .list-app__pin:hover { background: rgba(0, 0, 0, 0.08); }
-.list-app__pin.active { color: #d84315; background: rgba(255, 255, 255, 0.55); }
+.list-app__pin.active { color: #d84315; }
 
 .list-app__settings-widget { position: relative; -webkit-app-region: no-drag; }
 .list-app__settings-toggle {

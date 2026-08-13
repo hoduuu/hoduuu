@@ -132,4 +132,17 @@ describe('createNoteStore', () => {
     expect(updated).toEqual({ listFontSize: 18, listAlwaysOnTop: false });
     expect(store.getSettings()).toEqual({ listFontSize: 18, listAlwaysOnTop: false });
   });
+
+  it('backfills listAlwaysOnTop for a pre-existing settings object that predates it', () => {
+    // Simulates an existing install whose notes.json was written before listAlwaysOnTop
+    // existed: electron-store's shallow top-level merge means the persisted 'settings'
+    // object (old shape) wins entirely over the module defaults, so getSettings() must
+    // backfill the missing field itself rather than returning it as undefined.
+    fs.writeFileSync(
+      path.join(tmpDir, 'notes.json'),
+      JSON.stringify({ notes: [], settings: { listFontSize: 21 } }),
+    );
+    const store = createNoteStore(tmpDir);
+    expect(store.getSettings()).toEqual({ listFontSize: 21, listAlwaysOnTop: false });
+  });
 });
