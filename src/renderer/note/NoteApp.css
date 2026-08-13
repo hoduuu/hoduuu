@@ -15,21 +15,21 @@ html, body { margin: 0; padding: 0; height: 100%; }
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 3px;
-  padding: 5px 6px;
+  gap: 4px;
+  padding: 10px 12px;
   -webkit-app-region: drag;
 }
 .note-app__toolbar-group {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 3px;
+  gap: 4px;
   flex: 1 1 auto;
   min-width: 0;
 }
 .note-app__swatch {
-  width: 15px;
-  height: 15px;
+  width: 18px;
+  height: 18px;
   border-radius: 50%;
   border: 1.5px solid rgba(255, 255, 255, 0.85);
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.18);
@@ -42,7 +42,7 @@ html, body { margin: 0; padding: 0; height: 100%; }
 .note-app__toolbar-actions {
   display: flex;
   align-items: center;
-  gap: 3px;
+  gap: 4px;
   flex-shrink: 0;
   -webkit-app-region: no-drag;
 }
@@ -51,8 +51,8 @@ html, body { margin: 0; padding: 0; height: 100%; }
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 22px;
-  height: 22px;
+  width: 28px;
+  height: 28px;
   padding: 0;
   border: none;
   border-radius: 50%;
@@ -67,8 +67,8 @@ html, body { margin: 0; padding: 0; height: 100%; }
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 22px;
-  height: 22px;
+  width: 28px;
+  height: 28px;
   padding: 0;
   border: none;
   border-radius: 50%;
@@ -76,22 +76,64 @@ html, body { margin: 0; padding: 0; height: 100%; }
   color: rgba(0, 0, 0, 0.55);
   cursor: pointer;
   flex-shrink: 0;
+  -webkit-app-region: no-drag;
 }
 .note-app__pin:hover { background: rgba(0, 0, 0, 0.08); }
 .note-app__pin.active { color: #d84315; background: rgba(255, 255, 255, 0.55); }
 
-.note-app__close {
+.note-app__size-widget { position: relative; }
+.note-app__size-toggle {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 22px;
-  height: 22px;
+  width: 28px;
+  height: 28px;
   padding: 0;
   border: none;
   border-radius: 50%;
   background: transparent;
   color: rgba(0, 0, 0, 0.55);
-  font-size: 16px;
+  cursor: pointer;
+}
+.note-app__size-toggle:hover { background: rgba(0, 0, 0, 0.08); }
+
+.note-app__size-popover {
+  position: absolute;
+  top: calc(100% + 4px);
+  right: 0;
+  z-index: 5;
+  display: flex;
+  gap: 4px;
+  background: #fff;
+  border-radius: 999px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  padding: 4px;
+}
+.note-app__size-option {
+  border: none;
+  background: transparent;
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-size: 12px;
+  color: #333;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.note-app__size-option:hover { background: rgba(0, 0, 0, 0.06); }
+.note-app__size-option.active { background: rgba(0, 0, 0, 0.08); font-weight: 700; }
+
+.note-app__close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: rgba(0, 0, 0, 0.55);
+  font-size: 18px;
   line-height: 1;
   cursor: pointer;
   flex-shrink: 0;
