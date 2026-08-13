@@ -51,6 +51,16 @@ export function registerIpcHandlers(store: NoteStore, callbacks: WindowCallbacks
     callbacks.openListWindow();
   });
 
+  // Routes the renderer's close-button click through the main process's own
+  // `BrowserWindow.close()` on this exact window, so it fires that window's own `close`
+  // listener (see `windows.ts`'s `win.on('close', ...)`, which hides + persists `isOpen:
+  // false` instead of destroying). The renderer must never call the DOM `window.close()`
+  // directly for note windows — that path does not reliably trigger the interceptable
+  // Electron `close` event, so the hide/persist logic would be skipped.
+  ipcMain.handle(IPC_CHANNELS.CLOSE_WINDOW, (event) => {
+    BrowserWindow.fromWebContents(event.sender)?.close();
+  });
+
   ipcMain.handle(IPC_CHANNELS.GET_SETTINGS, () => store.getSettings());
 
   ipcMain.handle(IPC_CHANNELS.UPDATE_SETTINGS, (event, changes: Partial<AppSettings>) =>

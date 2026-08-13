@@ -27,7 +27,7 @@ describe('getDarkColor', () => {
     expect(getDarkColor('#E1BEE7')).toBe('#6A1B9A');
   });
 
-  it('falls back to the input value for an unknown color', () => {
-    expect(getDarkColor('#123456')).toBe('#123456');
+  it('falls back to a fixed neutral dark color for an unknown color (not the input itself, which would render invisible background-on-background text)', () => {
+    expect(getDarkColor('#123456')).toBe('#333333');
   });
 });

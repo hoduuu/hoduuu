@@ -3,6 +3,7 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { createNoteStore } from '../src/main/store';
+import type { AppSettings } from '../src/shared/types';
 
 describe('createNoteStore', () => {
   let tmpDir: string;
@@ -106,5 +107,25 @@ describe('createNoteStore', () => {
     store.updateSettings({ fontFamily: 'serif', fontSize: 22 });
     const reopened = createNoteStore(tmpDir);
     expect(reopened.getSettings()).toEqual({ fontFamily: 'serif', fontSize: 22 });
+  });
+
+  it('ignores an invalid fontFamily while still applying a valid fontSize in the same call', () => {
+    const store = createNoteStore(tmpDir);
+    const updated = store.updateSettings({
+      fontFamily: 'not-a-real-font' as AppSettings['fontFamily'],
+      fontSize: 18,
+    });
+    expect(updated).toEqual({ fontFamily: 'sans-serif', fontSize: 18 });
+    expect(store.getSettings()).toEqual({ fontFamily: 'sans-serif', fontSize: 18 });
+  });
+
+  it('ignores an invalid fontSize while still applying a valid fontFamily in the same call', () => {
+    const store = createNoteStore(tmpDir);
+    const updated = store.updateSettings({
+      fontFamily: 'serif',
+      fontSize: 999 as AppSettings['fontSize'],
+    });
+    expect(updated).toEqual({ fontFamily: 'serif', fontSize: 14 });
+    expect(store.getSettings()).toEqual({ fontFamily: 'serif', fontSize: 14 });
   });
 });

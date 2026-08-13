@@ -3,6 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { randomUUID } from 'node:crypto';
 import type { AppSettings, StickyNote } from '../shared/types';
+import { FONT_FAMILIES, FONT_SIZES } from '../shared/fonts';
 
 interface NotesSchema {
   notes: StickyNote[];
@@ -36,7 +37,20 @@ export function createNoteStore(cwd: string) {
   }
 
   function updateSettings(changes: Partial<AppSettings>): AppSettings {
-    const updated = { ...getSettings(), ...changes };
+    // The renderer's payload is untrusted (a corrupted or malicious IPC message could send
+    // anything), so only accept values that are actually valid options; silently drop
+    // anything else rather than persisting/reloading garbage on every future launch.
+    const validated: Partial<AppSettings> = {};
+    if (
+      changes.fontFamily !== undefined &&
+      FONT_FAMILIES.some((f) => f.value === changes.fontFamily)
+    ) {
+      validated.fontFamily = changes.fontFamily;
+    }
+    if (changes.fontSize !== undefined && (FONT_SIZES as number[]).includes(changes.fontSize)) {
+      validated.fontSize = changes.fontSize;
+    }
+    const updated = { ...getSettings(), ...validated };
     store.set('settings', updated);
     return updated;
   }
@@ -87,6 +101,9 @@ function backupIfCorrupted(filePath: string): void {
     JSON.parse(fs.readFileSync(filePath, 'utf-8'));
   } catch {
     const backupPath = `${filePath}.bak`;
+    // Never overwrite an existing backup: if corruption happens twice, the first backup is
+    // the user's only remaining recovery copy of their data, so a second corruption must not
+    // clobber it with the (also corrupted) second version.
     if (!fs.existsSync(backupPath)) {
       fs.copyFileSync(filePath, backupPath);
     }

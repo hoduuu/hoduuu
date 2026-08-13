@@ -30,6 +30,8 @@ export function createListWindow(): BrowserWindow {
   listWindow = new BrowserWindow({
     width: 360,
     height: 600,
+    minWidth: 240,
+    minHeight: 300,
     frame: false,
     webPreferences: { preload: join(__dirname, '../preload/index.js') },
   });
@@ -56,6 +58,8 @@ export function openNoteWindow(store: NoteStore, id: string): void {
     height: note.size.height,
     x: note.position.x,
     y: note.position.y,
+    minWidth: 180,
+    minHeight: 120,
     alwaysOnTop: note.alwaysOnTop,
     frame: false,
     webPreferences: {

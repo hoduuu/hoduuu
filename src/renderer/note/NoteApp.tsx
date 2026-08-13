@@ -128,7 +128,11 @@ export function NoteApp() {
               />
             </svg>
           </button>
-          <button className="note-app__close" onClick={() => window.close()} title="닫기">
+          <button
+            className="note-app__close"
+            onClick={() => window.notesAPI.closeCurrentWindow()}
+            title="닫기"
+          >
             ×
           </button>
         </div>

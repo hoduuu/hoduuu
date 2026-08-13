@@ -23,6 +23,7 @@ export interface NotesAPI {
   remove: (id: string) => Promise<boolean | null>;
   openNoteWindow: (id: string) => Promise<void>;
   openListWindow: () => Promise<void>;
+  closeCurrentWindow: () => Promise<void>;
   getSettings: () => Promise<AppSettings>;
   updateSettings: (changes: Partial<AppSettings>) => Promise<AppSettings | null>;
   onNotesChanged: (callback: (notes: StickyNote[]) => void) => () => void;
@@ -37,6 +38,7 @@ export const IPC_CHANNELS = {
   DELETE: 'notes:delete',
   OPEN_WINDOW: 'notes:openWindow',
   OPEN_LIST: 'notes:openList',
+  CLOSE_WINDOW: 'notes:closeWindow',
   CHANGED: 'notes:changed',
   SAVE_ERROR: 'notes:saveError',
   GET_SETTINGS: 'settings:get',

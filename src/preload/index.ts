@@ -9,6 +9,7 @@ const notesAPI: NotesAPI = {
   remove: (id) => ipcRenderer.invoke(IPC_CHANNELS.DELETE, id),
   openNoteWindow: (id) => ipcRenderer.invoke(IPC_CHANNELS.OPEN_WINDOW, id),
   openListWindow: () => ipcRenderer.invoke(IPC_CHANNELS.OPEN_LIST),
+  closeCurrentWindow: () => ipcRenderer.invoke(IPC_CHANNELS.CLOSE_WINDOW),
   getSettings: () => ipcRenderer.invoke(IPC_CHANNELS.GET_SETTINGS),
   updateSettings: (changes) => ipcRenderer.invoke(IPC_CHANNELS.UPDATE_SETTINGS, changes),
   onNotesChanged: (callback) => {
