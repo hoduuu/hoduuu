@@ -2,10 +2,41 @@ html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; }
 #root { height: 100%; }
 
 .list-app { display: flex; flex-direction: column; height: 100vh; font-family: sans-serif; }
-.list-app__header { display: flex; gap: 8px; padding: 8px; }
-.list-app__search { flex: 1; }
+.list-app__header { display: flex; align-items: center; gap: 8px; padding: 8px; }
+.list-app__search {
+  flex: 1;
+  border: none;
+  background: #eee;
+  border-radius: 4px;
+  padding: 6px 8px;
+  box-sizing: border-box;
+  font: inherit;
+}
+.list-app__search:focus { outline: 2px solid rgba(0, 0, 0, 0.15); }
+
+.list-app__new {
+  border: none;
+  background: transparent;
+  font-size: 22px;
+  line-height: 1;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  cursor: pointer;
+  color: rgba(0, 0, 0, 0.65);
+}
+.list-app__new:hover { background: rgba(0, 0, 0, 0.08); color: rgba(0, 0, 0, 0.85); }
+
 .list-app__tags { display: flex; flex-wrap: wrap; gap: 4px; padding: 0 8px 8px; }
-.list-app__tags button.active { font-weight: bold; text-decoration: underline; }
+.list-app__tags button {
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 999px;
+  padding: 3px 10px;
+  font-size: 12px;
+  background: #eee;
+  cursor: pointer;
+}
+.list-app__tags button.active { border-color: rgba(0, 0, 0, 0.6); font-weight: bold; }
 
 .list-app__notes {
   list-style: none;
@@ -15,6 +46,11 @@ html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; }
   min-height: 0;
   overflow-y: auto;
 }
+.list-app__notes::-webkit-scrollbar { width: 6px; }
+.list-app__notes::-webkit-scrollbar-button { display: none; width: 0; height: 0; }
+.list-app__notes::-webkit-scrollbar-track { background: transparent; }
+.list-app__notes::-webkit-scrollbar-thumb { background: rgba(0, 0, 0, 0.25); border-radius: 999px; }
+.list-app__notes::-webkit-scrollbar-thumb:hover { background: rgba(0, 0, 0, 0.4); }
 
 .list-app__note {
   display: flex;
@@ -22,12 +58,15 @@ html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; }
   border-radius: 6px;
   margin: 6px 8px;
   overflow: hidden;
+  transition: filter 0.1s ease;
 }
+.list-app__note:hover { filter: brightness(0.93); }
 
 .list-app__note-header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
+  gap: 4px;
   padding: 4px 6px 0;
 }
 .list-app__note-date { font-size: 10px; color: rgba(0, 0, 0, 0.55); }

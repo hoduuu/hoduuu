@@ -49,6 +49,20 @@ export function filterNotes(notes: StickyNote[], query: string): StickyNote[] {
   });
 }
 
+// Maps each tag to the color of the first note (in list order) that carries it, matching the
+// same first-seen rule collectAllTags uses for casing — a tag can appear on notes of different
+// colors, and there is no "correct" one, so the earliest note wins deterministically.
+export function collectTagColors(notes: StickyNote[]): Record<string, string> {
+  const colors: Record<string, string> = {};
+  for (const note of notes) {
+    for (const tag of note.tags) {
+      const key = tag.toLowerCase();
+      if (!(key in colors)) colors[key] = note.color;
+    }
+  }
+  return colors;
+}
+
 export function collectAllTags(notes: StickyNote[]): string[] {
   const seen = new Map<string, string>();
   for (const note of notes) {

@@ -1,6 +1,11 @@
 import { useEffect, useMemo, useState } from 'react';
 import type { StickyNote } from '../../shared/types';
-import { filterNotes, collectAllTags, formatNoteDate } from '../../shared/noteUtils';
+import {
+  filterNotes,
+  collectAllTags,
+  collectTagColors,
+  formatNoteDate,
+} from '../../shared/noteUtils';
 import './ListApp.css';
 
 export function ListApp() {
@@ -24,6 +29,7 @@ export function ListApp() {
   }, [notes, query, activeTag]);
 
   const allTags = useMemo(() => collectAllTags(notes), [notes]);
+  const tagColors = useMemo(() => collectTagColors(notes), [notes]);
 
   async function handleCreate() {
     const note = await window.notesAPI.create({});
@@ -49,7 +55,9 @@ export function ListApp() {
           value={query}
           onChange={(event) => setQuery(event.target.value)}
         />
-        <button onClick={handleCreate}>새 메모</button>
+        <button className="list-app__new" onClick={handleCreate} aria-label="새 메모">
+          +
+        </button>
       </header>
 
       <div className="list-app__tags">
@@ -60,6 +68,7 @@ export function ListApp() {
           <button
             key={tag}
             className={activeTag === tag ? 'active' : ''}
+            style={{ backgroundColor: tagColors[tag.toLowerCase()] }}
             onClick={() => setActiveTag(tag === activeTag ? null : tag)}
           >
             #{tag}

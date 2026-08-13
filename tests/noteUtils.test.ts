@@ -1,5 +1,12 @@
 import { describe, it, expect } from 'vitest';
-import { normalizeTagInput, filterNotes, collectAllTags, addTag, formatNoteDate } from '../src/shared/noteUtils';
+import {
+  normalizeTagInput,
+  filterNotes,
+  collectAllTags,
+  collectTagColors,
+  addTag,
+  formatNoteDate,
+} from '../src/shared/noteUtils';
 import type { StickyNote } from '../src/shared/types';
 
 describe('normalizeTagInput', () => {
@@ -18,6 +25,17 @@ describe('normalizeTagInput', () => {
   it('de-dupes case-insensitively, keeping the first-seen casing', () => {
     expect(normalizeTagInput('#Work, #work')).toEqual(['Work']);
     expect(normalizeTagInput('#work, #Work, #WORK')).toEqual(['work']);
+  });
+});
+
+describe('collectTagColors', () => {
+  it('maps each tag to the color of the first note that carries it', () => {
+    const notes = [
+      makeNote({ id: '1', color: '#FFF59D', tags: ['챗지피티'] }),
+      makeNote({ id: '2', color: '#C8E6C9', tags: ['메모장'] }),
+      makeNote({ id: '3', color: '#B3E5FC', tags: ['챗지피티'] }),
+    ];
+    expect(collectTagColors(notes)).toEqual({ 챗지피티: '#FFF59D', 메모장: '#C8E6C9' });
   });
 });
 
