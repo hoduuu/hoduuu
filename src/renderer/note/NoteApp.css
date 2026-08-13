@@ -1,0 +1,179 @@
+html, body { margin: 0; padding: 0; height: 100%; }
+#root { height: 100%; }
+
+.note-app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  box-sizing: border-box;
+  font-family: sans-serif;
+  overflow: hidden;
+}
+.note-app--loading { padding: 8px; }
+
+.note-app__toolbar {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 3px;
+  padding: 5px 6px;
+  -webkit-app-region: drag;
+}
+.note-app__toolbar-group {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 3px;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.note-app__swatch {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 255, 255, 0.85);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.18);
+  padding: 0;
+  cursor: pointer;
+  -webkit-app-region: no-drag;
+}
+.note-app__swatch.active { outline: 2px solid rgba(0, 0, 0, 0.55); outline-offset: 2px; }
+
+.note-app__toolbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  flex-shrink: 0;
+  -webkit-app-region: no-drag;
+}
+
+.note-app__menu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: rgba(0, 0, 0, 0.55);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.note-app__menu:hover { background: rgba(0, 0, 0, 0.08); }
+
+.note-app__pin {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: rgba(0, 0, 0, 0.55);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.note-app__pin:hover { background: rgba(0, 0, 0, 0.08); }
+.note-app__pin.active { color: #d84315; background: rgba(255, 255, 255, 0.55); }
+
+.note-app__close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: rgba(0, 0, 0, 0.55);
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.note-app__close:hover { background: rgba(0, 0, 0, 0.08); }
+
+.note-app__content {
+  flex: 1;
+  resize: none;
+  border: none;
+  background: transparent;
+  padding: 0 8px;
+  box-sizing: border-box;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.note-app__content:focus { outline: none; }
+.note-app__content::-webkit-scrollbar { width: 6px; }
+.note-app__content::-webkit-scrollbar-button { display: none; width: 0; height: 0; }
+.note-app__content::-webkit-scrollbar-track { background: transparent; }
+.note-app__content::-webkit-scrollbar-thumb { background: rgba(0, 0, 0, 0.25); border-radius: 999px; }
+.note-app__content::-webkit-scrollbar-thumb:hover { background: rgba(0, 0, 0, 0.4); }
+
+.note-app__tags {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 8px;
+}
+.note-app__tag-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  background: rgba(255, 255, 255, 0.65);
+  border-radius: 999px;
+  padding: 2px 8px;
+  font-size: 13px;
+}
+.note-app__tag-pill button {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 1;
+  padding: 0;
+  color: inherit;
+}
+.note-app__tag-input {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 999px;
+  padding: 2px 4px 2px 8px;
+  gap: 4px;
+}
+.note-app__tag-input input {
+  border: none;
+  background: transparent;
+  font-size: 13px;
+  width: 80px;
+  outline: none;
+}
+.note-app__tag-input button {
+  border: none;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  line-height: 1;
+  background: rgba(255, 255, 255, 0.8);
+  cursor: pointer;
+}
+
+.list-app__error-banner,
+.note-app__error-banner {
+  background: #ffebee;
+  color: #c62828;
+  padding: 6px 8px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+}
