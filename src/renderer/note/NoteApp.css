@@ -17,6 +17,7 @@ html, body { margin: 0; padding: 0; height: 100%; }
   justify-content: space-between;
   gap: 3px;
   padding: 5px 6px;
+  -webkit-app-region: drag;
 }
 .note-app__toolbar-group {
   display: flex;
@@ -34,62 +35,33 @@ html, body { margin: 0; padding: 0; height: 100%; }
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.18);
   padding: 0;
   cursor: pointer;
+  -webkit-app-region: no-drag;
 }
 .note-app__swatch.active { outline: 2px solid rgba(0, 0, 0, 0.55); outline-offset: 2px; }
 
-.note-app__font-widget { position: relative; }
-.note-app__font-toggle {
+.note-app__toolbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  flex-shrink: 0;
+  -webkit-app-region: no-drag;
+}
+
+.note-app__menu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 22px;
   height: 22px;
+  padding: 0;
   border: none;
   border-radius: 50%;
   background: transparent;
-  color: rgba(0, 0, 0, 0.6);
-  font-size: 11px;
-  font-weight: 700;
+  color: rgba(0, 0, 0, 0.55);
   cursor: pointer;
+  flex-shrink: 0;
 }
-.note-app__font-toggle:hover { background: rgba(0, 0, 0, 0.08); }
-.note-app__font-popover {
-  position: absolute;
-  top: calc(100% + 4px);
-  left: 0;
-  z-index: 5;
-  width: 130px;
-  max-height: 160px;
-  overflow-y: auto;
-  background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
-  padding: 6px;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-.note-app__font-popover::-webkit-scrollbar { width: 5px; }
-.note-app__font-popover::-webkit-scrollbar-button { display: none; width: 0; height: 0; }
-.note-app__font-popover::-webkit-scrollbar-track { background: transparent; }
-.note-app__font-popover::-webkit-scrollbar-thumb { background: rgba(0, 0, 0, 0.2); border-radius: 999px; }
-.note-app__font-popover-section { display: flex; flex-direction: column; gap: 1px; }
-.note-app__font-popover-label {
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  color: rgba(0, 0, 0, 0.4);
-  padding: 2px 6px 1px;
-}
-.note-app__font-option {
-  text-align: left;
-  border: none;
-  background: transparent;
-  border-radius: 5px;
-  padding: 4px 6px;
-  font-size: 12px;
-  color: #333;
-  cursor: pointer;
-}
-.note-app__font-option:hover { background: rgba(0, 0, 0, 0.06); }
-.note-app__font-option.active { background: rgba(0, 0, 0, 0.08); font-weight: 700; }
+.note-app__menu:hover { background: rgba(0, 0, 0, 0.08); }
 
 .note-app__pin {
   display: flex;
@@ -107,6 +79,24 @@ html, body { margin: 0; padding: 0; height: 100%; }
 }
 .note-app__pin:hover { background: rgba(0, 0, 0, 0.08); }
 .note-app__pin.active { color: #d84315; background: rgba(255, 255, 255, 0.55); }
+
+.note-app__close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: rgba(0, 0, 0, 0.55);
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.note-app__close:hover { background: rgba(0, 0, 0, 0.08); }
 
 .note-app__content {
   flex: 1;
