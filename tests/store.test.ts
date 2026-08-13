@@ -88,4 +88,23 @@ describe('createNoteStore', () => {
     expect(noteB.size).toEqual({ width: 240, height: 240 });
     expect(noteA.size).not.toBe(noteB.size);
   });
+
+  it('returns default settings before any update', () => {
+    const store = createNoteStore(tmpDir);
+    expect(store.getSettings()).toEqual({ fontFamily: 'sans-serif', fontSize: 14 });
+  });
+
+  it('updates settings and merges with the existing values', () => {
+    const store = createNoteStore(tmpDir);
+    const updated = store.updateSettings({ fontSize: 18 });
+    expect(updated).toEqual({ fontFamily: 'sans-serif', fontSize: 18 });
+    expect(store.getSettings()).toEqual({ fontFamily: 'sans-serif', fontSize: 18 });
+  });
+
+  it('persists settings across store instances backed by the same directory', () => {
+    const store = createNoteStore(tmpDir);
+    store.updateSettings({ fontFamily: 'serif', fontSize: 22 });
+    const reopened = createNoteStore(tmpDir);
+    expect(reopened.getSettings()).toEqual({ fontFamily: 'serif', fontSize: 22 });
+  });
 });

@@ -2,10 +2,11 @@ import Store from 'electron-store';
 import fs from 'node:fs';
 import path from 'node:path';
 import { randomUUID } from 'node:crypto';
-import type { StickyNote } from '../shared/types';
+import type { AppSettings, StickyNote } from '../shared/types';
 
 interface NotesSchema {
   notes: StickyNote[];
+  settings: AppSettings;
 }
 
 const DEFAULT_SIZE = { width: 240, height: 240 };
@@ -17,10 +18,27 @@ export function createNoteStore(cwd: string) {
   const filePath = path.join(cwd, 'notes.json');
   backupIfCorrupted(filePath);
 
-  const store = new Store<NotesSchema>({ name: 'notes', cwd, defaults: { notes: [] } });
+  const store = new Store<NotesSchema>({
+    name: 'notes',
+    cwd,
+    defaults: {
+      notes: [],
+      settings: { fontFamily: DEFAULT_FONT_FAMILY, fontSize: DEFAULT_FONT_SIZE },
+    },
+  });
 
   function getAllNotes(): StickyNote[] {
     return store.get('notes');
+  }
+
+  function getSettings(): AppSettings {
+    return store.get('settings');
+  }
+
+  function updateSettings(changes: Partial<AppSettings>): AppSettings {
+    const updated = { ...getSettings(), ...changes };
+    store.set('settings', updated);
+    return updated;
   }
 
   function createNote(partial: Partial<StickyNote> = {}): StickyNote {
@@ -62,7 +80,7 @@ export function createNoteStore(cwd: string) {
     return true;
   }
 
-  return { getAllNotes, createNote, updateNote, deleteNote };
+  return { getAllNotes, createNote, updateNote, deleteNote, getSettings, updateSettings };
 }
 
 function backupIfCorrupted(filePath: string): void {
@@ -71,9 +89,6 @@ function backupIfCorrupted(filePath: string): void {
     JSON.parse(fs.readFileSync(filePath, 'utf-8'));
   } catch {
     const backupPath = `${filePath}.bak`;
-    // Never overwrite an existing backup: if corruption happens twice, the first backup is the
-    // user's only remaining recovery copy and must survive. Still remove the corrupted file
-    // either way so the store can initialize fresh.
     if (!fs.existsSync(backupPath)) {
       fs.copyFileSync(filePath, backupPath);
     }
