@@ -5,6 +5,7 @@ export interface StickyNote {
   tags: string[];
   position: { x: number; y: number };
   size: { width: number; height: number };
+  fontSize: number;
   alwaysOnTop: boolean;
   isOpen: boolean;
   createdAt: number;
@@ -12,8 +13,7 @@ export interface StickyNote {
 }
 
 export interface AppSettings {
-  fontFamily: string;
-  fontSize: number;
+  listFontSize: number;
 }
 
 export interface NotesAPI {

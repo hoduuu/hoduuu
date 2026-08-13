@@ -75,6 +75,7 @@ function makeNote(overrides: Partial<StickyNote>): StickyNote {
     tags: [],
     position: { x: 0, y: 0 },
     size: { width: 240, height: 240 },
+    fontSize: 18,
     alwaysOnTop: true,
     isOpen: true,
     createdAt: 0,

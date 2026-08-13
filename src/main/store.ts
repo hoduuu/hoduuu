@@ -3,7 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { randomUUID } from 'node:crypto';
 import type { AppSettings, StickyNote } from '../shared/types';
-import { FONT_FAMILIES, FONT_SIZES } from '../shared/fonts';
+import { FONT_SIZES } from '../shared/fonts';
 
 interface NotesSchema {
   notes: StickyNote[];
@@ -12,8 +12,7 @@ interface NotesSchema {
 
 const DEFAULT_SIZE = { width: 240, height: 240 };
 const DEFAULT_COLOR = '#FFF59D';
-const DEFAULT_FONT_FAMILY = 'sans-serif';
-const DEFAULT_FONT_SIZE = 14;
+const DEFAULT_FONT_SIZE = 18;
 
 export function createNoteStore(cwd: string) {
   const filePath = path.join(cwd, 'notes.json');
@@ -24,7 +23,7 @@ export function createNoteStore(cwd: string) {
     cwd,
     defaults: {
       notes: [],
-      settings: { fontFamily: DEFAULT_FONT_FAMILY, fontSize: DEFAULT_FONT_SIZE },
+      settings: { listFontSize: DEFAULT_FONT_SIZE },
     },
   });
 
@@ -37,18 +36,14 @@ export function createNoteStore(cwd: string) {
   }
 
   function updateSettings(changes: Partial<AppSettings>): AppSettings {
-    // The renderer's payload is untrusted (a corrupted or malicious IPC message could send
-    // anything), so only accept values that are actually valid options; silently drop
-    // anything else rather than persisting/reloading garbage on every future launch.
+    // The renderer's payload is untrusted, so only accept a value that is actually a valid
+    // option; silently drop anything else rather than persisting/reloading garbage.
     const validated: Partial<AppSettings> = {};
     if (
-      changes.fontFamily !== undefined &&
-      FONT_FAMILIES.some((f) => f.value === changes.fontFamily)
+      changes.listFontSize !== undefined &&
+      (FONT_SIZES as number[]).includes(changes.listFontSize)
     ) {
-      validated.fontFamily = changes.fontFamily;
-    }
-    if (changes.fontSize !== undefined && (FONT_SIZES as number[]).includes(changes.fontSize)) {
-      validated.fontSize = changes.fontSize;
+      validated.listFontSize = changes.listFontSize;
     }
     const updated = { ...getSettings(), ...validated };
     store.set('settings', updated);
@@ -64,7 +59,8 @@ export function createNoteStore(cwd: string) {
       tags: partial.tags ?? [],
       position: partial.position ?? { x: 100, y: 100 },
       size: partial.size ?? { ...DEFAULT_SIZE },
-      alwaysOnTop: partial.alwaysOnTop ?? true,
+      fontSize: partial.fontSize ?? DEFAULT_FONT_SIZE,
+      alwaysOnTop: partial.alwaysOnTop ?? false,
       isOpen: partial.isOpen ?? true,
       createdAt: now,
       updatedAt: now,

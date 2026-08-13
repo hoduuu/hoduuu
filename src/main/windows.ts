@@ -4,7 +4,7 @@ import zlib from 'node:zlib';
 import type { NoteStore } from './store';
 import { IPC_CHANNELS } from '../shared/types';
 import type { StickyNote } from '../shared/types';
-import { toReadableErrorMessage } from './ipc';
+import { toReadableErrorMessage, broadcastChanged } from './ipc';
 import { debounce } from '../shared/debounce';
 
 // Runtime-generated tray icon: a small solid-color PNG, built by hand (PNG signature +
@@ -71,6 +71,7 @@ export function openNoteWindow(store: NoteStore, id: string): void {
 
   win.on('close', (event) => {
     if (isQuitting) return;
+    if (deleteNoteIfEmpty(store, id)) return;
     event.preventDefault();
     win.hide();
     persistNoteUpdate(store, id, { isOpen: false });
@@ -138,6 +139,26 @@ function setupApplicationMenu(): void {
       },
     ]),
   );
+}
+
+// A note left completely empty when its window closes is almost always an accidental "new
+// note" the user never actually wrote into — deleting it (instead of leaving an empty entry
+// behind in the list forever) is the requested default. Only the note's own `content` is
+// checked; tags alone don't save it from deletion.
+function deleteNoteIfEmpty(store: NoteStore, id: string): boolean {
+  const note = store.getAllNotes().find((n) => n.id === id);
+  if (!note || note.content !== '') return false;
+  try {
+    store.deleteNote(id);
+    broadcastChanged(store);
+    return true;
+  } catch (error) {
+    const message = toReadableErrorMessage(error);
+    for (const win of BrowserWindow.getAllWindows()) {
+      win.webContents.send(IPC_CHANNELS.SAVE_ERROR, `저장 실패: ${message}`);
+    }
+    return false;
+  }
 }
 
 // Wraps `store.updateNote` the same way `ipc.ts`'s `withSaveErrorHandling` wraps IPC mutations:

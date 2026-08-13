@@ -97,7 +97,7 @@ export function toReadableErrorMessage(error: unknown): string {
   return error instanceof Error ? error.message : String(error);
 }
 
-function broadcastChanged(store: NoteStore): void {
+export function broadcastChanged(store: NoteStore): void {
   const notes = store.getAllNotes();
   for (const win of BrowserWindow.getAllWindows()) {
     win.webContents.send(IPC_CHANNELS.CHANGED, notes);

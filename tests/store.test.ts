@@ -3,7 +3,6 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { createNoteStore } from '../src/main/store';
-import type { AppSettings } from '../src/shared/types';
 
 describe('createNoteStore', () => {
   let tmpDir: string;
@@ -27,7 +26,15 @@ describe('createNoteStore', () => {
     expect(note.content).toBe('hello');
     expect(note.color).toBe('#FFF59D');
     expect(note.tags).toEqual([]);
+    expect(note.fontSize).toBe(18);
+    expect(note.alwaysOnTop).toBe(false);
     expect(store.getAllNotes()).toHaveLength(1);
+  });
+
+  it('creates a note with an explicit fontSize override', () => {
+    const store = createNoteStore(tmpDir);
+    const note = store.createNote({ content: 'big', fontSize: 21 });
+    expect(note.fontSize).toBe(21);
   });
 
   it('updates an existing note and bumps updatedAt', () => {
@@ -70,14 +77,10 @@ describe('createNoteStore', () => {
     createNoteStore(tmpDir);
     expect(fs.readFileSync(backupPath, 'utf-8')).toBe('{ first corruption');
 
-    // Second corruption happens against a fresh store file (the first recovery already
-    // reset notes.json to a valid empty store); corrupt it again and re-open.
     fs.writeFileSync(notesPath, '{ second corruption');
     const store = createNoteStore(tmpDir);
 
-    // The backup must still hold the FIRST corruption, not the second.
     expect(fs.readFileSync(backupPath, 'utf-8')).toBe('{ first corruption');
-    // The store still recovers to a fresh, empty state after the second corruption.
     expect(store.getAllNotes()).toEqual([]);
   });
 
@@ -92,40 +95,27 @@ describe('createNoteStore', () => {
 
   it('returns default settings before any update', () => {
     const store = createNoteStore(tmpDir);
-    expect(store.getSettings()).toEqual({ fontFamily: 'sans-serif', fontSize: 14 });
+    expect(store.getSettings()).toEqual({ listFontSize: 18 });
   });
 
   it('updates settings and merges with the existing values', () => {
     const store = createNoteStore(tmpDir);
-    const updated = store.updateSettings({ fontSize: 18 });
-    expect(updated).toEqual({ fontFamily: 'sans-serif', fontSize: 18 });
-    expect(store.getSettings()).toEqual({ fontFamily: 'sans-serif', fontSize: 18 });
+    const updated = store.updateSettings({ listFontSize: 21 });
+    expect(updated).toEqual({ listFontSize: 21 });
+    expect(store.getSettings()).toEqual({ listFontSize: 21 });
   });
 
   it('persists settings across store instances backed by the same directory', () => {
     const store = createNoteStore(tmpDir);
-    store.updateSettings({ fontFamily: 'serif', fontSize: 22 });
+    store.updateSettings({ listFontSize: 15 });
     const reopened = createNoteStore(tmpDir);
-    expect(reopened.getSettings()).toEqual({ fontFamily: 'serif', fontSize: 22 });
+    expect(reopened.getSettings()).toEqual({ listFontSize: 15 });
   });
 
-  it('ignores an invalid fontFamily while still applying a valid fontSize in the same call', () => {
+  it('ignores an invalid listFontSize and keeps the previous value', () => {
     const store = createNoteStore(tmpDir);
-    const updated = store.updateSettings({
-      fontFamily: 'not-a-real-font' as AppSettings['fontFamily'],
-      fontSize: 18,
-    });
-    expect(updated).toEqual({ fontFamily: 'sans-serif', fontSize: 18 });
-    expect(store.getSettings()).toEqual({ fontFamily: 'sans-serif', fontSize: 18 });
-  });
-
-  it('ignores an invalid fontSize while still applying a valid fontFamily in the same call', () => {
-    const store = createNoteStore(tmpDir);
-    const updated = store.updateSettings({
-      fontFamily: 'serif',
-      fontSize: 999 as AppSettings['fontSize'],
-    });
-    expect(updated).toEqual({ fontFamily: 'serif', fontSize: 14 });
-    expect(store.getSettings()).toEqual({ fontFamily: 'serif', fontSize: 14 });
+    const updated = store.updateSettings({ listFontSize: 999 });
+    expect(updated).toEqual({ listFontSize: 18 });
+    expect(store.getSettings()).toEqual({ listFontSize: 18 });
   });
 });
