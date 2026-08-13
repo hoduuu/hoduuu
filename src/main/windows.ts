@@ -30,10 +30,9 @@ export function createListWindow(): BrowserWindow {
   listWindow = new BrowserWindow({
     width: 360,
     height: 600,
-    autoHideMenuBar: true,
+    frame: false,
     webPreferences: { preload: join(__dirname, '../preload/index.js') },
   });
-  listWindow.setMenuBarVisibility(false);
   loadRendererPage(listWindow, 'list');
   listWindow.on('closed', () => {
     listWindow = null;
@@ -58,13 +57,12 @@ export function openNoteWindow(store: NoteStore, id: string): void {
     x: note.position.x,
     y: note.position.y,
     alwaysOnTop: note.alwaysOnTop,
-    autoHideMenuBar: true,
+    frame: false,
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
       additionalArguments: [`--note-id=${id}`],
     },
   });
-  win.setMenuBarVisibility(false);
   loadRendererPage(win, 'note');
 
   win.on('close', (event) => {

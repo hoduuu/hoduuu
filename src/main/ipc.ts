@@ -1,10 +1,11 @@
 import { BrowserWindow, ipcMain, IpcMainInvokeEvent } from 'electron';
 import { IPC_CHANNELS } from '../shared/types';
-import type { StickyNote } from '../shared/types';
+import type { AppSettings, StickyNote } from '../shared/types';
 import type { NoteStore } from './store';
 
 interface WindowCallbacks {
   openNoteWindow: (id: string) => void;
+  openListWindow: () => void;
   setNoteAlwaysOnTop: (id: string, value: boolean) => void;
   closeNoteWindow: (id: string) => void;
 }
@@ -45,6 +46,20 @@ export function registerIpcHandlers(store: NoteStore, callbacks: WindowCallbacks
   ipcMain.handle(IPC_CHANNELS.OPEN_WINDOW, (_event, id: string) => {
     callbacks.openNoteWindow(id);
   });
+
+  ipcMain.handle(IPC_CHANNELS.OPEN_LIST, () => {
+    callbacks.openListWindow();
+  });
+
+  ipcMain.handle(IPC_CHANNELS.GET_SETTINGS, () => store.getSettings());
+
+  ipcMain.handle(IPC_CHANNELS.UPDATE_SETTINGS, (event, changes: Partial<AppSettings>) =>
+    withSaveErrorHandling(event, () => {
+      const updated = store.updateSettings(changes);
+      broadcastSettingsChanged(updated);
+      return updated;
+    }),
+  );
 }
 
 function withSaveErrorHandling<T>(event: IpcMainInvokeEvent, fn: () => T): T | null {
@@ -76,5 +91,11 @@ function broadcastChanged(store: NoteStore): void {
   const notes = store.getAllNotes();
   for (const win of BrowserWindow.getAllWindows()) {
     win.webContents.send(IPC_CHANNELS.CHANGED, notes);
+  }
+}
+
+function broadcastSettingsChanged(settings: AppSettings): void {
+  for (const win of BrowserWindow.getAllWindows()) {
+    win.webContents.send(IPC_CHANNELS.SETTINGS_CHANGED, settings);
   }
 }

@@ -15,6 +15,9 @@ app.whenReady().then(() => {
 
   registerIpcHandlers(store, {
     openNoteWindow: (id) => openNoteWindow(store, id),
+    openListWindow: () => {
+      createListWindow();
+    },
     setNoteAlwaysOnTop,
     closeNoteWindow: (id) => closeNoteWindow(id),
   });
