@@ -50,8 +50,6 @@ export function createNoteStore(cwd: string) {
       tags: partial.tags ?? [],
       position: partial.position ?? { x: 100, y: 100 },
       size: partial.size ?? { ...DEFAULT_SIZE },
-      fontFamily: partial.fontFamily ?? DEFAULT_FONT_FAMILY,
-      fontSize: partial.fontSize ?? DEFAULT_FONT_SIZE,
       alwaysOnTop: partial.alwaysOnTop ?? true,
       isOpen: partial.isOpen ?? true,
       createdAt: now,
