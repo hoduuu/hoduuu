@@ -7,6 +7,7 @@ interface WindowCallbacks {
   openNoteWindow: (id: string) => void;
   openListWindow: () => void;
   setNoteAlwaysOnTop: (id: string, value: boolean) => void;
+  setListAlwaysOnTop: (value: boolean) => void;
   closeNoteWindow: (id: string) => void;
 }
 
@@ -66,6 +67,9 @@ export function registerIpcHandlers(store: NoteStore, callbacks: WindowCallbacks
   ipcMain.handle(IPC_CHANNELS.UPDATE_SETTINGS, (event, changes: Partial<AppSettings>) =>
     withSaveErrorHandling(event, () => {
       const updated = store.updateSettings(changes);
+      if (changes.listAlwaysOnTop !== undefined) {
+        callbacks.setListAlwaysOnTop(updated.listAlwaysOnTop);
+      }
       broadcastSettingsChanged(updated);
       return updated;
     }),

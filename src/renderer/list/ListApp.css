@@ -1,16 +1,35 @@
 html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; }
 #root { height: 100%; }
 
-.list-app { display: flex; flex-direction: column; height: 100vh; font-family: sans-serif; }
+.list-app { display: flex; flex-direction: column; height: 100vh; font-family: 'Dotum', '돋움', sans-serif; }
+button, input, textarea { font-family: inherit; }
 
 .list-app__titlebar {
   display: flex;
   align-items: center;
-  padding: 8px 8px;
+  padding: 6px 8px;
   flex-shrink: 0;
   -webkit-app-region: drag;
 }
 .list-app__titlebar-drag { flex: 1; height: 100%; }
+
+.list-app__pin {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: rgba(0, 0, 0, 0.55);
+  cursor: pointer;
+  flex-shrink: 0;
+  -webkit-app-region: no-drag;
+}
+.list-app__pin:hover { background: rgba(0, 0, 0, 0.08); }
+.list-app__pin.active { color: #d84315; }
 
 .list-app__settings-widget { position: relative; -webkit-app-region: no-drag; }
 .list-app__settings-toggle {
@@ -64,8 +83,6 @@ html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; }
   border-radius: 50%;
   background: transparent;
   color: rgba(0, 0, 0, 0.55);
-  font-size: 18px;
-  line-height: 1;
   cursor: pointer;
   -webkit-app-region: no-drag;
 }
@@ -80,7 +97,7 @@ html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; }
   padding: 6px 8px;
   box-sizing: border-box;
   font: inherit;
-  font-size: var(--list-font-size, 14px);
+  font-size: 18px;
 }
 .list-app__search:focus { outline: 2px solid rgba(0, 0, 0, 0.15); }
 
@@ -94,6 +111,7 @@ html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; }
   border-radius: 50%;
   cursor: pointer;
   color: rgba(0, 0, 0, 0.65);
+  flex-shrink: 0;
 }
 .list-app__new:hover { background: rgba(0, 0, 0, 0.08); color: rgba(0, 0, 0, 0.85); }
 
@@ -102,7 +120,7 @@ html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; }
   border: 1px solid rgba(0, 0, 0, 0.12);
   border-radius: 999px;
   padding: 3px 10px;
-  font-size: 12px;
+  font-size: 15px;
   background: #eee;
   cursor: pointer;
   transition: filter 0.1s ease;

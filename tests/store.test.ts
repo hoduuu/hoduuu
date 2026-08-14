@@ -95,27 +95,54 @@ describe('createNoteStore', () => {
 
   it('returns default settings before any update', () => {
     const store = createNoteStore(tmpDir);
-    expect(store.getSettings()).toEqual({ listFontSize: 18 });
+    expect(store.getSettings()).toEqual({ listFontSize: 18, listAlwaysOnTop: false });
   });
 
   it('updates settings and merges with the existing values', () => {
     const store = createNoteStore(tmpDir);
     const updated = store.updateSettings({ listFontSize: 21 });
-    expect(updated).toEqual({ listFontSize: 21 });
-    expect(store.getSettings()).toEqual({ listFontSize: 21 });
+    expect(updated).toEqual({ listFontSize: 21, listAlwaysOnTop: false });
+    expect(store.getSettings()).toEqual({ listFontSize: 21, listAlwaysOnTop: false });
   });
 
   it('persists settings across store instances backed by the same directory', () => {
     const store = createNoteStore(tmpDir);
     store.updateSettings({ listFontSize: 15 });
     const reopened = createNoteStore(tmpDir);
-    expect(reopened.getSettings()).toEqual({ listFontSize: 15 });
+    expect(reopened.getSettings()).toEqual({ listFontSize: 15, listAlwaysOnTop: false });
   });
 
   it('ignores an invalid listFontSize and keeps the previous value', () => {
     const store = createNoteStore(tmpDir);
     const updated = store.updateSettings({ listFontSize: 999 });
-    expect(updated).toEqual({ listFontSize: 18 });
-    expect(store.getSettings()).toEqual({ listFontSize: 18 });
+    expect(updated).toEqual({ listFontSize: 18, listAlwaysOnTop: false });
+    expect(store.getSettings()).toEqual({ listFontSize: 18, listAlwaysOnTop: false });
+  });
+
+  it('updates listAlwaysOnTop independently of listFontSize', () => {
+    const store = createNoteStore(tmpDir);
+    const updated = store.updateSettings({ listAlwaysOnTop: true });
+    expect(updated).toEqual({ listFontSize: 18, listAlwaysOnTop: true });
+    expect(store.getSettings()).toEqual({ listFontSize: 18, listAlwaysOnTop: true });
+  });
+
+  it('ignores a non-boolean listAlwaysOnTop value', () => {
+    const store = createNoteStore(tmpDir);
+    const updated = store.updateSettings({ listAlwaysOnTop: 'yes' as unknown as boolean });
+    expect(updated).toEqual({ listFontSize: 18, listAlwaysOnTop: false });
+    expect(store.getSettings()).toEqual({ listFontSize: 18, listAlwaysOnTop: false });
+  });
+
+  it('backfills listAlwaysOnTop for a pre-existing settings object that predates it', () => {
+    // Simulates an existing install whose notes.json was written before listAlwaysOnTop
+    // existed: electron-store's shallow top-level merge means the persisted 'settings'
+    // object (old shape) wins entirely over the module defaults, so getSettings() must
+    // backfill the missing field itself rather than returning it as undefined.
+    fs.writeFileSync(
+      path.join(tmpDir, 'notes.json'),
+      JSON.stringify({ notes: [], settings: { listFontSize: 21 } }),
+    );
+    const store = createNoteStore(tmpDir);
+    expect(store.getSettings()).toEqual({ listFontSize: 21, listAlwaysOnTop: false });
   });
 });

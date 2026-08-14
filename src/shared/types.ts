@@ -14,6 +14,7 @@ export interface StickyNote {
 
 export interface AppSettings {
   listFontSize: number;
+  listAlwaysOnTop: boolean;
 }
 
 export interface NotesAPI {

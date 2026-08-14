@@ -7,7 +7,8 @@ import { FONT_SIZE_OPTIONS } from '../../shared/fonts';
 import { NoteCard } from './NoteCard';
 import './ListApp.css';
 
-const DEFAULT_SETTINGS: AppSettings = { listFontSize: 18 };
+const DEFAULT_SETTINGS: AppSettings = { listFontSize: 18, listAlwaysOnTop: false };
+const GEAR_TOOTH_ANGLES = [0, 45, 90, 135, 180, 225, 270, 315];
 
 export function ListApp() {
   const [notes, setNotes] = useState<StickyNote[]>([]);
@@ -78,11 +79,30 @@ export function ListApp() {
     window.notesAPI.updateSettings({ listFontSize });
   }
 
+  function handleListAlwaysOnTopToggle() {
+    window.notesAPI.updateSettings({ listAlwaysOnTop: !settings.listAlwaysOnTop });
+  }
+
   const listStyle = { '--list-font-size': `${settings.listFontSize}px` } as CSSProperties;
 
   return (
     <div className="list-app" style={listStyle}>
       <div className="list-app__titlebar">
+        <button
+          className={`list-app__pin ${settings.listAlwaysOnTop ? 'active' : ''}`}
+          onClick={handleListAlwaysOnTopToggle}
+          title="항상 위에 고정"
+        >
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+            <path
+              d="M14.5 2.5 21.5 9.5 19 12l-2-.5-4 4 .5 5-1.5 1.5-4-4L3 22l4-4-4-4 1.5-1.5 5 .5 4-4-.5-2Z"
+              fill={settings.listAlwaysOnTop ? 'currentColor' : 'none'}
+              stroke="currentColor"
+              strokeWidth="1.6"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </button>
         <div className="list-app__titlebar-drag" />
         <div className="list-app__settings-widget" ref={settingsWidgetRef}>
           <button
@@ -92,13 +112,20 @@ export function ListApp() {
             title="글씨 크기"
           >
             <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
-              <path
-                d="M12 8.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Zm8.4 3.5a7.97 7.97 0 0 0-.15-1.5l2.02-1.58-2-3.46-2.38.96a8.05 8.05 0 0 0-2.6-1.5L14.9 2h-4l-.39 2.42a8.05 8.05 0 0 0-2.6 1.5l-2.38-.96-2 3.46 2.02 1.58a7.97 7.97 0 0 0 0 3l-2.02 1.58 2 3.46 2.38-.96c.77.66 1.65 1.17 2.6 1.5L10.9 22h4l.39-2.42a8.05 8.05 0 0 0 2.6-1.5l2.38.96 2-3.46-2.02-1.58c.1-.49.15-.99.15-1.5Z"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.4"
-                strokeLinejoin="round"
-              />
+              <circle cx="12" cy="12" r="3.4" fill="none" stroke="currentColor" strokeWidth="1.6" />
+              <circle cx="12" cy="12" r="7.4" fill="none" stroke="currentColor" strokeWidth="1.6" />
+              {GEAR_TOOTH_ANGLES.map((deg) => (
+                <rect
+                  key={deg}
+                  x="10.8"
+                  y="1.6"
+                  width="2.4"
+                  height="3"
+                  rx="0.5"
+                  fill="currentColor"
+                  transform={`rotate(${deg} 12 12)`}
+                />
+              ))}
             </svg>
           </button>
           {settingsPopoverOpen && (
@@ -120,7 +147,14 @@ export function ListApp() {
           onClick={() => window.close()}
           aria-label="창 닫기"
         >
-          ×
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+            <path
+              d="M5 5 19 19M19 5 5 19"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+            />
+          </svg>
         </button>
       </div>
 
@@ -134,7 +168,7 @@ export function ListApp() {
       <header className="list-app__header">
         <input
           className="list-app__search"
-          placeholder="검색 (텍스트 또는 #태그)"
+          placeholder="검색"
           value={query}
           onChange={(event) => setQuery(event.target.value)}
         />

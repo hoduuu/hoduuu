@@ -6,9 +6,10 @@ html, body { margin: 0; padding: 0; height: 100%; }
   flex-direction: column;
   height: 100vh;
   box-sizing: border-box;
-  font-family: sans-serif;
+  font-family: 'Dotum', '돋움', sans-serif;
   overflow: hidden;
 }
+button, input, textarea { font-family: inherit; }
 .note-app--loading { padding: 8px; }
 
 .note-app__toolbar {
@@ -37,7 +38,6 @@ html, body { margin: 0; padding: 0; height: 100%; }
   cursor: pointer;
   -webkit-app-region: no-drag;
 }
-.note-app__swatch.active { outline: 2px solid rgba(0, 0, 0, 0.55); outline-offset: 2px; }
 
 .note-app__toolbar-actions {
   display: flex;
@@ -133,8 +133,6 @@ html, body { margin: 0; padding: 0; height: 100%; }
   border-radius: 50%;
   background: transparent;
   color: rgba(0, 0, 0, 0.55);
-  font-size: 18px;
-  line-height: 1;
   cursor: pointer;
   flex-shrink: 0;
 }
