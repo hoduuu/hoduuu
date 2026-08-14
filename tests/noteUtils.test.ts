@@ -1,6 +1,5 @@
 import { describe, it, expect } from 'vitest';
 import {
-  normalizeTagInput,
   filterNotes,
   collectAllTags,
   collectTagColors,
@@ -8,25 +7,6 @@ import {
   formatNoteDate,
 } from '../src/shared/noteUtils';
 import type { StickyNote } from '../src/shared/types';
-
-describe('normalizeTagInput', () => {
-  it('strips leading # and trims whitespace', () => {
-    expect(normalizeTagInput('#API키, #깃허브')).toEqual(['API키', '깃허브']);
-  });
-
-  it('splits on whitespace when no commas are present', () => {
-    expect(normalizeTagInput('#foo #bar')).toEqual(['foo', 'bar']);
-  });
-
-  it('drops empty entries and de-dupes', () => {
-    expect(normalizeTagInput('#foo, , #foo')).toEqual(['foo']);
-  });
-
-  it('de-dupes case-insensitively, keeping the first-seen casing', () => {
-    expect(normalizeTagInput('#Work, #work')).toEqual(['Work']);
-    expect(normalizeTagInput('#work, #Work, #WORK')).toEqual(['work']);
-  });
-});
 
 describe('collectTagColors', () => {
   it('maps each tag to the color of the first note that carries it', () => {

@@ -209,7 +209,6 @@ button, input, textarea { font-family: inherit; }
   cursor: pointer;
 }
 
-.list-app__error-banner,
 .note-app__error-banner {
   background: #ffebee;
   color: #c62828;
