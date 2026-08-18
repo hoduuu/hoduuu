@@ -1,0 +1,267 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --accent: #ff8a65;
+  --accent-dark: #e8683f;
+  --bg: #faf7f2;
+  --panel-bg: #ffffff;
+  --border: #e4ddd3;
+  --text: #333;
+}
+
+body {
+  margin: 0;
+  font-family: 'Noto Sans KR', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 24px;
+  background: var(--panel-bg);
+  border-bottom: 1px solid var(--border);
+}
+
+.topbar h1 {
+  font-size: 20px;
+  margin: 0;
+}
+
+.primary-btn {
+  background: var(--accent);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.primary-btn:hover {
+  background: var(--accent-dark);
+}
+
+.layout {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+  align-items: flex-start;
+}
+
+.panel {
+  width: 300px;
+  flex-shrink: 0;
+  background: var(--panel-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.tabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+
+.tab-btn {
+  flex: 1 1 auto;
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  background: #f5f1ea;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.tab-btn.active {
+  background: var(--accent);
+  color: white;
+  border-color: var(--accent);
+}
+
+.tab-panel {
+  display: none;
+}
+
+.tab-panel.active {
+  display: block;
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.gallery-item {
+  aspect-ratio: 1;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: #f5f1ea;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+  transition: transform 0.1s;
+}
+
+.gallery-item:hover {
+  transform: scale(1.05);
+  border-color: var(--accent);
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.upload-btn {
+  display: block;
+  text-align: center;
+  padding: 10px;
+  border: 1px dashed var(--accent);
+  border-radius: 8px;
+  color: var(--accent-dark);
+  cursor: pointer;
+  font-size: 13px;
+  background: #fff6f1;
+  width: 100%;
+}
+
+.text-controls {
+  margin-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.text-controls label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 13px;
+  color: #555;
+}
+
+.text-controls input,
+.text-controls select {
+  padding: 6px 8px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.layer-controls {
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+}
+
+.layer-controls .hint {
+  font-size: 12px;
+  color: #888;
+  margin: 0 0 10px;
+}
+
+.layer-btns {
+  display: flex;
+  gap: 6px;
+}
+
+.layer-btns button {
+  flex: 1;
+  padding: 8px 6px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: #f5f1ea;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.danger-btn {
+  color: #c0392b;
+  border-color: #f0c4bd !important;
+  background: #fdf0ee !important;
+}
+
+.stage-wrap {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.stage {
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  aspect-ratio: 3 / 2;
+  background: #ddd;
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+  touch-action: none;
+  user-select: none;
+}
+
+.layer {
+  position: absolute;
+  cursor: move;
+}
+
+.layer img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  pointer-events: none;
+}
+
+.layer.text-layer {
+  white-space: pre-wrap;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  text-align: center;
+  line-height: 1.2;
+}
+
+.layer.selected {
+  outline: 2px dashed var(--accent);
+  outline-offset: 2px;
+}
+
+.resize-handle {
+  position: absolute;
+  right: -8px;
+  bottom: -8px;
+  width: 16px;
+  height: 16px;
+  background: var(--accent);
+  border: 2px solid white;
+  border-radius: 50%;
+  cursor: nwse-resize;
+}
+
+@media (max-width: 860px) {
+  .layout {
+    flex-direction: column;
+  }
+  .panel {
+    width: 100%;
+  }
+}

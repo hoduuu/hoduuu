@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>나만의 꾸미기</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Gaegu:wght@400;700&family=Jua&family=Nanum+Pen+Script&family=Noto+Sans+KR:wght@400;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <h1>나만의 꾸미기 🎨</h1>
+    <button id="exportBtn" class="primary-btn">PNG로 저장</button>
+  </header>
+
+  <main class="layout">
+    <aside class="panel">
+      <div class="tabs">
+        <button class="tab-btn active" data-tab="background">배경</button>
+        <button class="tab-btn" data-tab="character">캐릭터</button>
+        <button class="tab-btn" data-tab="prop">소품</button>
+        <button class="tab-btn" data-tab="text">텍스트</button>
+      </div>
+
+      <section class="tab-panel active" data-panel="background">
+        <div class="gallery" id="backgroundGallery"></div>
+        <label class="upload-btn">
+          내 배경 이미지 올리기
+          <input type="file" accept="image/*" id="backgroundUpload" hidden />
+        </label>
+      </section>
+
+      <section class="tab-panel" data-panel="character">
+        <div class="gallery" id="characterGallery"></div>
+        <label class="upload-btn">
+          내 캐릭터 이미지 올리기
+          <input type="file" accept="image/*" id="characterUpload" hidden />
+        </label>
+      </section>
+
+      <section class="tab-panel" data-panel="prop">
+        <div class="gallery" id="propGallery"></div>
+        <label class="upload-btn">
+          내 소품 이미지 올리기
+          <input type="file" accept="image/*" id="propUpload" hidden />
+        </label>
+      </section>
+
+      <section class="tab-panel" data-panel="text">
+        <button id="addTextBtn" class="upload-btn">텍스트 추가</button>
+        <div class="text-controls" id="textControls" hidden>
+          <label>내용
+            <input type="text" id="textContent" maxlength="60" />
+          </label>
+          <label>폰트
+            <select id="textFont">
+              <option value="'Noto Sans KR', sans-serif">기본(Noto Sans KR)</option>
+              <option value="'Jua', sans-serif">Jua</option>
+              <option value="'Black Han Sans', sans-serif">Black Han Sans</option>
+              <option value="'Gaegu', cursive">Gaegu</option>
+              <option value="'Nanum Pen Script', cursive">손글씨(Nanum Pen)</option>
+              <option value="'Poppins', sans-serif">Poppins</option>
+            </select>
+          </label>
+          <label>색상
+            <input type="color" id="textColor" value="#222222" />
+          </label>
+          <label>크기
+            <input type="range" id="textSize" min="12" max="120" value="40" />
+          </label>
+        </div>
+      </section>
+
+      <div class="layer-controls" id="layerControls" hidden>
+        <p class="hint">선택한 요소를 드래그로 이동, 모서리 손잡이로 크기 조절하세요.</p>
+        <div class="layer-btns">
+          <button id="bringFrontBtn">맨 앞으로</button>
+          <button id="sendBackBtn">맨 뒤로</button>
+          <button id="deleteLayerBtn" class="danger-btn">삭제</button>
+        </div>
+      </div>
+    </aside>
+
+    <section class="stage-wrap">
+      <div id="stage" class="stage"></div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
