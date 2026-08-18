@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800">
+  <defs>
+    <linearGradient id="night" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0d1440"/>
+      <stop offset="60%" stop-color="#26306e"/>
+      <stop offset="100%" stop-color="#5a5a9c"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#night)"/>
+  <g fill="#ffffff">
+    <circle cx="120" cy="90" r="4"/>
+    <circle cx="260" cy="180" r="3" opacity="0.8"/>
+    <circle cx="380" cy="70" r="5"/>
+    <circle cx="520" cy="150" r="3" opacity="0.7"/>
+    <circle cx="640" cy="60" r="4" opacity="0.9"/>
+    <circle cx="760" cy="200" r="3" opacity="0.6"/>
+    <circle cx="200" cy="300" r="3" opacity="0.7"/>
+    <circle cx="460" cy="260" r="4" opacity="0.85"/>
+    <circle cx="1080" cy="320" r="3" opacity="0.7"/>
+    <circle cx="880" cy="120" r="3" opacity="0.75"/>
+    <circle cx="1140" cy="90" r="4" opacity="0.9"/>
+    <circle cx="700" cy="330" r="3" opacity="0.6"/>
+  </g>
+  <circle cx="960" cy="180" r="78" fill="#fdf6d3"/>
+  <circle cx="935" cy="160" r="16" fill="#ece2b8" opacity="0.7"/>
+  <circle cx="985" cy="205" r="11" fill="#ece2b8" opacity="0.7"/>
+  <circle cx="950" cy="215" r="7" fill="#ece2b8" opacity="0.6"/>
+  <path d="M0 620 Q220 545 460 615 T900 600 T1200 630 V800 H0 Z" fill="#1b2150"/>
+  <path d="M0 700 Q260 645 540 705 T1200 690 V800 H0 Z" fill="#121736"/>
+</svg>

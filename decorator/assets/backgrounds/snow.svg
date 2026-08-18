@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800">
+  <defs>
+    <linearGradient id="snowsky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#9fc6e8"/>
+      <stop offset="100%" stop-color="#e6f2fb"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#snowsky)"/>
+  <g fill="#ffffff" opacity="0.9">
+    <circle cx="150" cy="120" r="7"/>
+    <circle cx="320" cy="200" r="5"/>
+    <circle cx="480" cy="100" r="6"/>
+    <circle cx="640" cy="230" r="5"/>
+    <circle cx="810" cy="140" r="7"/>
+    <circle cx="980" cy="90" r="5"/>
+    <circle cx="1110" cy="220" r="6"/>
+    <circle cx="240" cy="330" r="5"/>
+    <circle cx="560" cy="360" r="6"/>
+    <circle cx="900" cy="320" r="5"/>
+  </g>
+  <path d="M120 520 L215 330 L310 520 Z" fill="#cfe2f0"/>
+  <path d="M215 330 L255 410 L175 410 Z" fill="#ffffff"/>
+  <path d="M820 530 L930 320 L1040 530 Z" fill="#cfe2f0"/>
+  <path d="M930 320 L975 410 L885 410 Z" fill="#ffffff"/>
+  <g fill="#3f7a5c">
+    <path d="M480 520 L530 380 L580 520 Z"/>
+    <path d="M480 460 L530 330 L580 460 Z"/>
+    <path d="M660 530 L700 420 L740 530 Z"/>
+    <path d="M660 480 L700 380 L740 480 Z"/>
+  </g>
+  <rect x="522" y="515" width="16" height="35" fill="#6b4a2f"/>
+  <rect x="693" y="525" width="14" height="30" fill="#6b4a2f"/>
+  <path d="M0 540 Q300 495 600 545 T1200 530 V800 H0 Z" fill="#f7fbfe"/>
+  <path d="M0 630 Q320 590 660 640 T1200 620 V800 H0 Z" fill="#ffffff"/>
+</svg>

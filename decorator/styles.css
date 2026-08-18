@@ -178,18 +178,23 @@ body {
 }
 
 .layer-btns {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   gap: 6px;
 }
 
 .layer-btns button {
-  flex: 1;
   padding: 8px 6px;
   border: 1px solid var(--border);
   border-radius: 6px;
   background: #f5f1ea;
   cursor: pointer;
   font-size: 12px;
+}
+
+.layer-btns button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
 }
 
 .danger-btn {

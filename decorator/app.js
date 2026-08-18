@@ -12,12 +12,18 @@ const ASSETS = {
     { name: '바다', src: 'assets/backgrounds/ocean.svg' },
     { name: '산', src: 'assets/backgrounds/mountain.svg' },
     { name: '노을', src: 'assets/backgrounds/sunset.svg' },
+    { name: '밤하늘', src: 'assets/backgrounds/night.svg' },
+    { name: '도시', src: 'assets/backgrounds/city.svg' },
+    { name: '눈밭', src: 'assets/backgrounds/snow.svg' },
   ],
   character: [
     { name: '물고기', src: 'assets/characters/fish.svg' },
     { name: '고양이', src: 'assets/characters/cat.svg' },
     { name: '곰', src: 'assets/characters/bear.svg' },
     { name: '새', src: 'assets/characters/bird.svg' },
+    { name: '토끼', src: 'assets/characters/rabbit.svg' },
+    { name: '강아지', src: 'assets/characters/dog.svg' },
+    { name: '문어', src: 'assets/characters/octopus.svg' },
   ],
   prop: [
     { name: '나무', src: 'assets/props/tree.svg' },
@@ -25,6 +31,9 @@ const ASSETS = {
     { name: '해', src: 'assets/props/sun.svg' },
     { name: '구름', src: 'assets/props/cloud.svg' },
     { name: '풍선', src: 'assets/props/balloon.svg' },
+    { name: '별', src: 'assets/props/star.svg' },
+    { name: '꽃', src: 'assets/props/flower.svg' },
+    { name: '하트', src: 'assets/props/heart.svg' },
   ],
 };
 
@@ -144,6 +153,7 @@ function addImageLayer(src) {
       y: clampPos(50 - hPct / 2 + dy, hPct),
       w: wPct,
       h: hPct,
+      flipX: false,
     };
     layer.el = createImageLayerEl(layer);
     layers.push(layer);
@@ -159,7 +169,10 @@ function createImageLayerEl(layer) {
   el.dataset.id = layer.id;
   el.innerHTML = `<img src="${layer.src}" draggable="false" alt="" /><div class="resize-handle"></div>`;
   layer.el = el;
+  // 반전은 레이어 상자가 아니라 그 안의 이미지에만 걸어야 크기 조절 손잡이가 같이 뒤집히지 않는다.
+  layer.imgEl = el.querySelector('img');
   applyLayerBox(layer);
+  applyLayerFlip(layer);
   el.addEventListener('pointerdown', (e) => startMove(e, layer));
   el.querySelector('.resize-handle').addEventListener('pointerdown', (e) => startResize(e, layer));
   return el;
@@ -170,6 +183,10 @@ function applyLayerBox(layer) {
   layer.el.style.top = `${layer.y}%`;
   layer.el.style.width = `${layer.w}%`;
   layer.el.style.height = `${layer.h}%`;
+}
+
+function applyLayerFlip(layer) {
+  layer.imgEl.style.transform = layer.flipX ? 'scaleX(-1)' : '';
 }
 
 // ---------- 텍스트 레이어 ----------
@@ -254,6 +271,7 @@ function selectLayer(id) {
   layers.forEach((l) => l.el.classList.toggle('selected', l.id === id));
   const layer = getSelected();
   layerControls.hidden = !layer;
+  document.getElementById('flipBtn').disabled = !layer || layer.type !== 'image';
   if (layer && layer.type === 'text') {
     switchTab('text');
     document.getElementById('textContent').value = layer.content;
@@ -342,6 +360,14 @@ function endDrag() {
 }
 
 // ---------- 레이어 순서 / 삭제 ----------
+// 텍스트는 뒤집으면 읽을 수 없으므로 이미지 레이어에만 적용한다.
+document.getElementById('flipBtn').addEventListener('click', () => {
+  const layer = getSelected();
+  if (!layer || layer.type !== 'image') return;
+  layer.flipX = !layer.flipX;
+  applyLayerFlip(layer);
+});
+
 document.getElementById('bringFrontBtn').addEventListener('click', () => {
   const layer = getSelected();
   if (!layer) return;
@@ -408,7 +434,16 @@ async function exportPng() {
       const y = (layer.y / 100) * STAGE_H;
       const w = (layer.w / 100) * STAGE_W;
       const h = (layer.h / 100) * STAGE_H;
-      ctx.drawImage(img, x, y, w, h);
+      if (layer.flipX) {
+        // 오른쪽 모서리를 원점으로 옮긴 뒤 x축을 뒤집으면 상자 위치는 그대로 두고 그림만 반전된다.
+        ctx.save();
+        ctx.translate(x + w, y);
+        ctx.scale(-1, 1);
+        ctx.drawImage(img, 0, 0, w, h);
+        ctx.restore();
+      } else {
+        ctx.drawImage(img, x, y, w, h);
+      }
     } else {
       const x = (layer.x / 100) * STAGE_W;
       const y = (layer.y / 100) * STAGE_H;
