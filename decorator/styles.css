@@ -96,9 +96,11 @@ body {
   display: block;
 }
 
+/* 패널이 전체 폭으로 늘어나는 좁은 화면에서도 썸네일이 커지지 않도록
+   고정 3열 대신 최소 폭 기준으로 열 개수를 채운다. */
 .gallery {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(72px, 1fr));
   gap: 10px;
   margin-bottom: 12px;
 }
@@ -198,8 +200,11 @@ body {
 
 .stage-wrap {
   flex: 1;
+  min-width: 0;
   display: flex;
   justify-content: center;
+  /* stretch가 걸리면 스테이지 높이가 래퍼 높이로 덮여써져 aspect-ratio가 무시된다. */
+  align-items: flex-start;
 }
 
 .stage {
@@ -262,6 +267,13 @@ body {
     flex-direction: column;
   }
   .panel {
+    width: 100%;
+  }
+  /* 세로로 쌓이면 flex:1은 높이 기준이 되어 래퍼가 0으로 붕괴한다.
+     크기는 스테이지가 정하게 두고, 캔버스를 조작 패널보다 위에 둔다. */
+  .stage-wrap {
+    order: -1;
+    flex: none;
     width: 100%;
   }
 }

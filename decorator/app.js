@@ -36,6 +36,15 @@ let layers = []; // { id, type: 'image'|'text', el, ...props }
 let selectedId = null;
 let backgroundSrc = null;
 let uid = 0;
+let spawnIndex = 0;
+
+// 새 레이어가 정확히 같은 자리에 겹쳐 쌓이면 아래 것을 집을 수 없다.
+// 중앙을 기준으로 조금씩 어긋나게 놓아 각각을 바로 집어 옮길 수 있게 한다.
+function spawnOffset() {
+  const step = 4;
+  const slot = spawnIndex++ % 6;
+  return { dx: (slot - 2.5) * step, dy: (slot - 2.5) * step };
+}
 
 // ---------- 갤러리 초기화 ----------
 function renderGallery(category) {
@@ -125,13 +134,14 @@ function addImageLayer(src) {
     const aspect = img.naturalHeight / img.naturalWidth; // h/w
     const wPct = 22;
     const hPct = wPct * STAGE_RATIO * aspect;
+    const { dx, dy } = spawnOffset();
     const layer = {
       id: ++uid,
       type: 'image',
       src,
       aspect,
-      x: 50 - wPct / 2,
-      y: 50 - hPct / 2,
+      x: clampPos(50 - wPct / 2 + dx, wPct),
+      y: clampPos(50 - hPct / 2 + dy, hPct),
       w: wPct,
       h: hPct,
     };
@@ -164,6 +174,7 @@ function applyLayerBox(layer) {
 
 // ---------- 텍스트 레이어 ----------
 document.getElementById('addTextBtn').addEventListener('click', () => {
+  const { dx, dy } = spawnOffset();
   const layer = {
     id: ++uid,
     type: 'text',
@@ -171,8 +182,8 @@ document.getElementById('addTextBtn').addEventListener('click', () => {
     fontFamily: document.getElementById('textFont').value,
     color: document.getElementById('textColor').value,
     fontSizeFrac: Number(document.getElementById('textSize').value) / STAGE_H,
-    x: 50,
-    y: 50,
+    x: clampPos(50 + dx, 0),
+    y: clampPos(50 + dy, 0),
   };
   layer.el = createTextLayerEl(layer);
   layers.push(layer);
