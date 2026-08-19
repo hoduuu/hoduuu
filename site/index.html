@@ -10,6 +10,9 @@
 <meta property="og:title" content="에이스원비즈니스센터" />
 <meta property="og:description" content="영등포 에이스하이테크시티 독립형 사무실 · 비상주 서비스 · 회의실" />
 <meta property="og:type" content="website" />
+<!-- TODO: 카톡/SNS 공유 썸네일. 건물 외관 또는 라운지 사진(1200x630)을 images/og.jpg 로 넣고 아래 주석 해제
+<meta property="og:image" content="images/og.jpg" />
+<meta property="og:url" content="https://실제도메인/" /> -->
 <meta name="theme-color" content="#ffffff" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -40,7 +43,7 @@
 
 <header class="site-header" id="top">
   <div class="wrap header-inner">
-    <a class="brand" href="#top">
+    <a class="brand" href="./index.html">
       <span class="brand-mark" aria-hidden="true">A1</span>
       <span class="brand-text">
         <strong>에이스원비즈니스센터</strong>
@@ -49,11 +52,11 @@
     </a>
 
     <nav class="nav" id="nav" aria-label="주요 메뉴">
-      <a href="#service">서비스</a>
-      <a href="#rooms">공간 안내</a>
-      <a href="#facility">시설 안내</a>
-      <a href="#process">이용 절차</a>
+      <a href="#rooms">시설안내</a>
+      <a href="#pricing">요금안내</a>
+      <a href="./virtual-office.html">비상주 서비스</a>
       <a href="#location">오시는 길</a>
+      <a href="#contact">문의</a>
     </nav>
 
     <div class="header-cta">
@@ -82,7 +85,7 @@
         </p>
         <div class="hero-actions">
           <a class="btn btn-primary btn-lg" href="tel:01064250543">전화 상담하기</a>
-          <a class="btn btn-ghost btn-lg" href="#service">서비스 살펴보기</a>
+          <a class="btn btn-ghost btn-lg" href="#contact">문의 남기기</a>
         </div>
         <ul class="hero-chips">
           <li>독립 사무실</li>
@@ -92,25 +95,46 @@
         </ul>
       </div>
 
-      <aside class="hero-card reveal" aria-label="빠른 문의">
-        <h2>빠른 문의</h2>
-        <p class="hero-card-desc">공실 현황과 이용 요금은 전화 또는 이메일로 안내해 드립니다.</p>
-        <dl class="quick-list">
-          <div>
-            <dt>전화</dt>
-            <dd><a href="tel:01064250543">010-6425-0543</a></dd>
-          </div>
-          <div>
-            <dt>이메일</dt>
-            <dd><a href="mailto:bizforum2@naver.com">bizforum2@naver.com</a></dd>
-          </div>
-          <div>
-            <dt>주소</dt>
-            <dd>서울시 영등포구 경인로 775<br />에이스하이테크시티 2동 1201호</dd>
-          </div>
-        </dl>
-        <a class="btn btn-primary btn-block" href="mailto:bizforum2@naver.com?subject=%EC%97%90%EC%9D%B4%EC%8A%A4%EC%9B%90%EB%B9%84%EC%A6%88%EB%8B%88%EC%8A%A4%EC%84%BC%ED%84%B0%20%EB%AC%B8%EC%9D%98">이메일로 문의하기</a>
-      </aside>
+      <!-- 사진 자리: 건물 외관 또는 라운지 대표컷 -->
+      <div class="hero-photo reveal">
+        <div class="photo-slot photo-slot-tall">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h4l2-3h6l2 3h4v13H3z"/><circle cx="12" cy="13" r="4"/></svg>
+          <span>대표 사진</span>
+          <small>images/hero.jpg</small>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 공실 현황 -->
+  <!-- ============================================================
+       공실 현황 갱신 방법
+       1) 아래 .vac-date 의 날짜를 오늘 날짜로 바꾼다
+       2) 각 호실의 class 를 상태에 맞게 바꾼다
+          vac-open = 즉시 입주 가능 (초록) / vac-ask = 문의 (파랑) / vac-full = 만실 (회색)
+          안쪽 글자도 같이 바꿀 것
+       ※ 갱신할 자신이 없으면 이 섹션 전체를 지우는 편이 낫습니다.
+          날짜가 오래된 공실 정보는 오히려 신뢰를 깎습니다.
+       ============================================================ -->
+  <section class="section section-tight" id="vacancy">
+    <div class="wrap">
+      <div class="vacancy-box reveal">
+        <div class="vacancy-head">
+          <h2>현재 공실 현황</h2>
+          <span class="vac-date">2026-08-19 기준</span>
+        </div>
+        <ul class="vacancy-list">
+          <li><strong>1인실</strong><span class="vac vac-open">즉시 입주 가능</span></li>
+          <li><strong>2인실</strong><span class="vac vac-open">즉시 입주 가능</span></li>
+          <li><strong>3인실</strong><span class="vac vac-ask">문의</span></li>
+          <li><strong>4인실</strong><span class="vac vac-full">만실</span></li>
+          <li><strong>5인실</strong><span class="vac vac-ask">문의</span></li>
+        </ul>
+        <p class="vacancy-note">
+          호실 위치·창측 여부 등 자세한 조건은 전화로 확인해 주세요.
+          <a href="tel:01064250543">010-6425-0543</a>
+        </p>
+      </div>
     </div>
   </section>
 
@@ -149,7 +173,7 @@
             <li>우편물·택배 수령 및 안내</li>
             <li>필요 시 회의실 이용 연계</li>
           </ul>
-          <a class="card-link" href="#contact">이용 문의하기</a>
+          <a class="card-link" href="./virtual-office.html">비상주 서비스 자세히</a>
         </article>
 
         <article class="card reveal">
@@ -180,97 +204,69 @@
         </p>
       </header>
 
+      <!-- 사진 교체 방법: 각 카드의 .photo-slot 통째로 아래처럼 바꾸면 됩니다
+           <img class="room-img" src="images/room-1.jpg" alt="1인실 내부" loading="lazy" /> -->
       <div class="rooms">
         <article class="room reveal">
-          <div class="room-plan">
-            <svg viewBox="0 0 160 110" role="img" aria-label="1인실 평면 이미지">
-              <rect class="rm" x="10" y="10" width="140" height="90" rx="10" />
-              <rect class="dk" x="34" y="34" width="52" height="24" rx="5" />
-              <circle class="ch" cx="60" cy="72" r="9" />
-              <rect class="dr" x="104" y="94" width="34" height="6" rx="3" />
-            </svg>
+          <div class="photo-slot">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h4l2-3h6l2 3h4v13H3z"/><circle cx="12" cy="13" r="4"/></svg>
+            <span>1인실 내부</span>
+            <small>images/room-1.jpg</small>
           </div>
           <div class="room-body">
-            <h3>1인실</h3>
+            <div class="room-title"><h3>1인실</h3><span class="vac vac-open">즉시 입주 가능</span></div>
             <p>1인 사업자·프리랜서를 위한 컴팩트한 독립 공간입니다.</p>
             <p class="room-meta">권장 인원 1인 · 책상 1</p>
           </div>
         </article>
 
         <article class="room reveal">
-          <div class="room-plan">
-            <svg viewBox="0 0 160 110" role="img" aria-label="2인실 평면 이미지">
-              <rect class="rm" x="10" y="10" width="140" height="90" rx="10" />
-              <rect class="dk" x="26" y="30" width="48" height="22" rx="5" />
-              <rect class="dk" x="86" y="30" width="48" height="22" rx="5" />
-              <circle class="ch" cx="50" cy="66" r="8" />
-              <circle class="ch" cx="110" cy="66" r="8" />
-              <rect class="dr" x="104" y="94" width="34" height="6" rx="3" />
-            </svg>
+          <div class="photo-slot">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h4l2-3h6l2 3h4v13H3z"/><circle cx="12" cy="13" r="4"/></svg>
+            <span>2인실 내부</span>
+            <small>images/room-2.jpg</small>
           </div>
           <div class="room-body">
-            <h3>2인실</h3>
+            <div class="room-title"><h3>2인실</h3><span class="vac vac-open">즉시 입주 가능</span></div>
             <p>둘이 함께 쓰기 좋은 크기. 소규모 창업팀에 적합합니다.</p>
             <p class="room-meta">권장 인원 2인 · 책상 2</p>
           </div>
         </article>
 
         <article class="room reveal">
-          <div class="room-plan">
-            <svg viewBox="0 0 160 110" role="img" aria-label="3인실 평면 이미지">
-              <rect class="rm" x="10" y="10" width="140" height="90" rx="10" />
-              <rect class="dk" x="24" y="26" width="44" height="20" rx="5" />
-              <rect class="dk" x="92" y="26" width="44" height="20" rx="5" />
-              <rect class="dk" x="58" y="62" width="44" height="20" rx="5" />
-              <circle class="ch" cx="46" cy="56" r="7" />
-              <circle class="ch" cx="114" cy="56" r="7" />
-              <circle class="ch" cx="80" cy="90" r="7" />
-              <rect class="dr" x="112" y="94" width="30" height="6" rx="3" />
-            </svg>
+          <div class="photo-slot">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h4l2-3h6l2 3h4v13H3z"/><circle cx="12" cy="13" r="4"/></svg>
+            <span>3인실 내부</span>
+            <small>images/room-3.jpg</small>
           </div>
           <div class="room-body">
-            <h3>3인실</h3>
+            <div class="room-title"><h3>3인실</h3><span class="vac vac-ask">문의</span></div>
             <p>업무 공간과 간단한 회의를 함께 소화할 수 있는 크기입니다.</p>
             <p class="room-meta">권장 인원 3인 · 책상 3</p>
           </div>
         </article>
 
         <article class="room reveal">
-          <div class="room-plan">
-            <svg viewBox="0 0 160 110" role="img" aria-label="4인실 평면 이미지">
-              <rect class="rm" x="10" y="10" width="140" height="90" rx="10" />
-              <rect class="dk" x="24" y="26" width="44" height="20" rx="5" />
-              <rect class="dk" x="92" y="26" width="44" height="20" rx="5" />
-              <rect class="dk" x="24" y="64" width="44" height="20" rx="5" />
-              <rect class="dk" x="92" y="64" width="44" height="20" rx="5" />
-              <circle class="ch" cx="46" cy="55" r="7" />
-              <circle class="ch" cx="114" cy="55" r="7" />
-              <rect class="dr" x="112" y="94" width="30" height="6" rx="3" />
-            </svg>
+          <div class="photo-slot">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h4l2-3h6l2 3h4v13H3z"/><circle cx="12" cy="13" r="4"/></svg>
+            <span>4인실 내부</span>
+            <small>images/room-4.jpg</small>
           </div>
           <div class="room-body">
-            <h3>4인실</h3>
+            <div class="room-title"><h3>4인실</h3><span class="vac vac-full">만실</span></div>
             <p>팀 단위 근무에 적합한 공간. 자리 배치를 자유롭게 구성할 수 있습니다.</p>
             <p class="room-meta">권장 인원 4인 · 책상 4</p>
           </div>
         </article>
 
         <article class="room reveal">
-          <div class="room-plan">
-            <svg viewBox="0 0 160 110" role="img" aria-label="5인실 평면 이미지">
-              <rect class="rm" x="10" y="10" width="140" height="90" rx="10" />
-              <rect class="dk" x="22" y="24" width="40" height="18" rx="5" />
-              <rect class="dk" x="98" y="24" width="40" height="18" rx="5" />
-              <rect class="dk" x="22" y="62" width="40" height="18" rx="5" />
-              <rect class="dk" x="98" y="62" width="40" height="18" rx="5" />
-              <rect class="dk" x="60" y="43" width="40" height="18" rx="5" />
-              <circle class="ch" cx="42" cy="52" r="6" />
-              <circle class="ch" cx="118" cy="52" r="6" />
-              <rect class="dr" x="112" y="94" width="30" height="6" rx="3" />
-            </svg>
+          <div class="photo-slot">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h4l2-3h6l2 3h4v13H3z"/><circle cx="12" cy="13" r="4"/></svg>
+            <span>5인실 내부</span>
+            <small>images/room-5.jpg</small>
           </div>
           <div class="room-body">
-            <h3>5인실</h3>
+            <div class="room-title"><h3>5인실</h3><span class="vac vac-ask">문의</span></div>
             <p>인원이 늘어나는 팀을 위한 가장 넓은 독립 호실입니다.</p>
             <p class="room-meta">권장 인원 5인 · 책상 5</p>
           </div>
@@ -284,19 +280,29 @@
           </div>
         </article>
       </div>
-    </div>
-  </section>
 
-  <!-- FACILITY -->
-  <section class="section" id="facility">
-    <div class="wrap">
-      <header class="section-head reveal">
-        <p class="eyebrow">FACILITY</p>
-        <h2>시설 안내</h2>
-        <p class="section-desc">업무에 필요한 기본 환경을 갖추고 있습니다.</p>
-      </header>
+      <!-- 공용 공간 사진 -->
+      <h3 class="sub-head reveal">공용 공간</h3>
+      <div class="gallery">
+        <div class="photo-slot reveal">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h4l2-3h6l2 3h4v13H3z"/><circle cx="12" cy="13" r="4"/></svg>
+          <span>회의실</span><small>images/meeting.jpg</small>
+        </div>
+        <div class="photo-slot reveal">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h4l2-3h6l2 3h4v13H3z"/><circle cx="12" cy="13" r="4"/></svg>
+          <span>라운지</span><small>images/lounge.jpg</small>
+        </div>
+        <div class="photo-slot reveal">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h4l2-3h6l2 3h4v13H3z"/><circle cx="12" cy="13" r="4"/></svg>
+          <span>복도 · 출입구</span><small>images/corridor.jpg</small>
+        </div>
+        <div class="photo-slot reveal">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h4l2-3h6l2 3h4v13H3z"/><circle cx="12" cy="13" r="4"/></svg>
+          <span>건물 외관</span><small>images/building.jpg</small>
+        </div>
+      </div>
 
-      <ul class="facility-grid">
+      <ul class="facility-grid" id="facility">
         <li class="reveal"><span class="fi" aria-hidden="true">🔐</span><strong>개별 출입문</strong><em>호실마다 분리된 독립 공간</em></li>
         <li class="reveal"><span class="fi" aria-hidden="true">🪑</span><strong>기본 가구</strong><em>책상·의자 등 비치</em></li>
         <li class="reveal"><span class="fi" aria-hidden="true">🌐</span><strong>인터넷</strong><em>업무용 네트워크 이용</em></li>
@@ -306,6 +312,50 @@
         <li class="reveal"><span class="fi" aria-hidden="true">❄️</span><strong>냉난방</strong><em>사계절 실내 환경 관리</em></li>
         <li class="reveal"><span class="fi" aria-hidden="true">🏢</span><strong>지식산업센터</strong><em>편의시설이 모인 건물 내 위치</em></li>
       </ul>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <!-- ============================================================
+       요금 채우는 방법
+       "OO" 로 표시된 곳에 실제 금액/기간을 넣고, 감싸고 있는
+       <span class="todo"> 태그를 지우면 강조 표시가 사라집니다.
+       ※ "OO만원부터" 로 적은 금액의 호실이 실제로 있어야 합니다 (표시광고법).
+       ============================================================ -->
+  <section class="section" id="pricing">
+    <div class="wrap">
+      <header class="section-head reveal">
+        <p class="eyebrow">PRICE</p>
+        <h2>요금 안내</h2>
+        <p class="section-desc">호실 위치와 계약 기간에 따라 달라집니다. 정확한 금액은 상담 시 안내해 드립니다.</p>
+      </header>
+
+      <div class="price-wrap reveal">
+        <table class="price-table">
+          <caption class="sr-only">호실별 월 이용료 안내</caption>
+          <thead>
+            <tr><th scope="col">구분</th><th scope="col">월 이용료</th><th scope="col">비고</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">1인실</th><td>월 <span class="todo">OO</span>만원부터</td><td>1인 사용 기준</td></tr>
+            <tr><th scope="row">2인실</th><td>월 <span class="todo">OO</span>만원부터</td><td>2인 사용 기준</td></tr>
+            <tr><th scope="row">3인실</th><td>월 <span class="todo">OO</span>만원부터</td><td>3인 사용 기준</td></tr>
+            <tr><th scope="row">4인실</th><td>월 <span class="todo">OO</span>만원부터</td><td>4인 사용 기준</td></tr>
+            <tr><th scope="row">5인실</th><td>월 <span class="todo">OO</span>만원부터</td><td>5인 사용 기준</td></tr>
+            <tr><th scope="row">비상주 서비스</th><td>월 <span class="todo">OO</span>만원부터</td><td><a href="./virtual-office.html">서비스 내용 보기</a></td></tr>
+            <tr><th scope="row">회의실</th><td>시간당 <span class="todo">OO</span>원</td><td>입주사 우선 예약</td></tr>
+          </tbody>
+        </table>
+
+        <ul class="price-terms">
+          <li><strong>보증금</strong><span class="todo">OO만원</span></li>
+          <li><strong>관리비</strong><span class="todo">임대료에 포함 / 별도</span></li>
+          <li><strong>부가세</strong><span class="todo">별도 / 포함</span></li>
+          <li><strong>최소 계약기간</strong><span class="todo">OO개월</span></li>
+          <li><strong>인터넷·냉난방</strong><span class="todo">포함 / 별도</span></li>
+        </ul>
+        <p class="price-note">위 금액은 안내용이며 호실 위치와 계약 조건에 따라 달라질 수 있습니다.</p>
+      </div>
     </div>
   </section>
 
@@ -356,9 +406,12 @@
             <div><dt>주소</dt><dd>서울시 영등포구 경인로 775<br />에이스하이테크시티 2동 1201호</dd></div>
             <div><dt>전화</dt><dd><a href="tel:01064250543">010-6425-0543</a></dd></div>
             <div><dt>이메일</dt><dd><a href="mailto:bizforum2@naver.com">bizforum2@naver.com</a></dd></div>
+            <div><dt>교통</dt><dd><span class="todo">지하철 O호선 OO역 O번 출구 도보 O분</span><br /><span class="todo">주차 안내 문구</span></dd></div>
           </dl>
           <div class="location-actions">
-            <a class="btn btn-primary" href="https://map.naver.com/p/search/%EC%84%9C%EC%9A%B8%20%EC%98%81%EB%93%B1%ED%8F%AC%EA%B5%AC%20%EA%B2%BD%EC%9D%B8%EB%A1%9C%20775" target="_blank" rel="noopener">네이버 지도에서 보기</a>
+            <!-- TODO: 네이버 플레이스 등록 후 아래 href 를 실제 플레이스 주소로 교체
+                 (예: https://map.naver.com/p/entry/place/1234567890) -->
+            <a class="btn btn-primary" href="https://map.naver.com/p/search/%EC%84%9C%EC%9A%B8%20%EC%98%81%EB%93%B1%ED%8F%AC%EA%B5%AC%20%EA%B2%BD%EC%9D%B8%EB%A1%9C%20775" target="_blank" rel="noopener">네이버 플레이스에서 보기</a>
             <a class="btn btn-ghost" href="https://map.kakao.com/?q=%EC%84%9C%EC%9A%B8%20%EC%98%81%EB%93%B1%ED%8F%AC%EA%B5%AC%20%EA%B2%BD%EC%9D%B8%EB%A1%9C%20775" target="_blank" rel="noopener">카카오맵에서 보기</a>
           </div>
         </div>
@@ -367,17 +420,68 @@
   </section>
 
   <!-- CONTACT -->
-  <section class="section" id="contact">
+  <!-- ============================================================
+       Formspree 연결 방법
+       1) formspree.io 가입 → New Form 생성 (수신 메일: bizforum2@naver.com)
+       2) 발급된 주소(https://formspree.io/f/xxxxxxxx)를 아래 <form action="..."> 에 붙여넣기
+       3) 첫 제출 시 오는 확인 메일에서 인증하면 그때부터 메일이 옵니다
+       ※ 항목을 더 넣고 싶으면(이름/문의유형/희망시기 등)
+          .field 블록을 복사해서 name 속성만 바꾸면 됩니다.
+       ============================================================ -->
+  <section class="section section-tint" id="contact">
     <div class="wrap">
-      <div class="contact-band reveal">
-        <div>
-          <h2>공간이 필요하신가요?</h2>
-          <p>공실 현황, 이용 요금, 회의실 예약 모두 편하게 문의해 주세요.</p>
-        </div>
-        <div class="contact-actions">
-          <a class="btn btn-primary btn-lg" href="tel:01064250543">010-6425-0543</a>
-          <a class="btn btn-white btn-lg" href="mailto:bizforum2@naver.com">bizforum2@naver.com</a>
-        </div>
+      <header class="section-head reveal">
+        <p class="eyebrow">CONTACT</p>
+        <h2>문의하기</h2>
+        <p class="section-desc">
+          문의는 영업일 기준 순차적으로 답변드립니다.<br />
+          (평일 09:00~18:00 / 주말·공휴일 문의는 다음 영업일에 확인됩니다)
+        </p>
+      </header>
+
+      <div class="contact-grid">
+        <form class="contact-form reveal" id="contactForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+          <div class="field">
+            <label for="f-contact">이메일 또는 연락처 <span class="req">필수</span></label>
+            <input type="text" id="f-contact" name="연락처" required autocomplete="on"
+                   placeholder="bizforum2@naver.com 또는 010-0000-0000" />
+          </div>
+
+          <div class="field">
+            <label for="f-message">문의 내용 <span class="req">필수</span></label>
+            <textarea id="f-message" name="문의내용" rows="6" required
+                      placeholder="필요한 인원, 희망 입주 시기 등을 함께 적어주시면 더 빠르게 안내해 드립니다."></textarea>
+          </div>
+
+          <div class="field field-check">
+            <input type="checkbox" id="f-agree" name="개인정보동의" value="동의함" required />
+            <label for="f-agree">
+              <a href="./privacy.html" target="_blank" rel="noopener">개인정보 수집·이용</a>에 동의합니다.
+              <span class="req">필수</span>
+            </label>
+          </div>
+
+          <!-- 스팸 봇 방지용 숨김 필드. 사람은 보이지 않으므로 비워둡니다 -->
+          <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" class="gotcha" />
+
+          <button type="submit" class="btn btn-primary btn-lg btn-block" id="submitBtn">문의 보내기</button>
+          <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+          <p class="form-note">
+            수집 항목: 연락처, 문의 내용 / 목적: 문의 응대 / 보유기간: 문의 종료 후 6개월.
+            자세한 내용은 <a href="./privacy.html" target="_blank" rel="noopener">개인정보처리방침</a>을 확인해 주세요.
+          </p>
+        </form>
+
+        <aside class="contact-side reveal">
+          <h3>바로 연락하기</h3>
+          <p>급하신 문의는 전화가 가장 빠릅니다.</p>
+          <a class="btn btn-primary btn-block" href="tel:01064250543">010-6425-0543</a>
+          <a class="btn btn-ghost btn-block" href="mailto:bizforum2@naver.com">bizforum2@naver.com</a>
+          <dl class="quick-list">
+            <div><dt>상담 시간</dt><dd>평일 09:00 ~ 18:00</dd></div>
+            <div><dt>주소</dt><dd>서울시 영등포구 경인로 775<br />에이스하이테크시티 2동 1201호</dd></div>
+          </dl>
+        </aside>
       </div>
     </div>
   </section>
@@ -394,10 +498,18 @@
     </div>
     <address class="footer-info">
       <span>상호 ㈜비즈포럼</span>
+      <!-- TODO: 전자상거래법상 표기 의무 항목. 실제 값으로 채울 것 -->
+      <span>대표자 <span class="todo">OOO</span></span>
+      <span>사업자등록번호 <span class="todo">000-00-00000</span></span>
       <span>서울시 영등포구 경인로 775 에이스하이테크시티 2동 1201호</span>
       <span>전화 <a href="tel:01064250543">010-6425-0543</a></span>
       <span>이메일 <a href="mailto:bizforum2@naver.com">bizforum2@naver.com</a></span>
     </address>
+    <nav class="footer-links" aria-label="약관 메뉴">
+      <a href="./privacy.html">개인정보처리방침</a>
+      <a href="./virtual-office.html">비상주 서비스</a>
+      <a href="https://map.naver.com/p/search/%EC%84%9C%EC%9A%B8%20%EC%98%81%EB%93%B1%ED%8F%AC%EA%B5%AC%20%EA%B2%BD%EC%9D%B8%EB%A1%9C%20775" target="_blank" rel="noopener">네이버 플레이스</a>
+    </nav>
     <p class="copyright">© <span id="year">2026</span> ㈜비즈포럼. All rights reserved.</p>
   </div>
 </footer>

@@ -1,4 +1,4 @@
-// 모바일 메뉴, 헤더 그림자, 등장 애니메이션
+// 모바일 메뉴, 헤더 그림자, 등장 애니메이션, 문의 폼 전송
 (function () {
   var header = document.querySelector('.site-header');
   var toggle = document.getElementById('navToggle');
@@ -43,4 +43,49 @@
 
   var year = document.getElementById('year');
   if (year) year.textContent = String(new Date().getFullYear());
+
+  // ---- 문의 폼 (Formspree) ----
+  // 페이지 이동 없이 그 자리에서 전송하고 결과 메시지를 보여줍니다.
+  var form = document.getElementById('contactForm');
+  var status = document.getElementById('formStatus');
+  var submitBtn = document.getElementById('submitBtn');
+  if (!form || !status || !submitBtn) return;
+
+  var setStatus = function (message, kind) {
+    status.textContent = message;
+    status.className = 'form-status' + (kind ? ' is-' + kind : '');
+  };
+
+  form.addEventListener('submit', function (e) {
+    // Formspree 주소를 아직 안 넣었으면 전송하지 않고 안내만 합니다
+    if (form.action.indexOf('YOUR_FORM_ID') !== -1) {
+      e.preventDefault();
+      setStatus('폼이 아직 연결되지 않았습니다. 전화(010-6425-0543) 또는 이메일로 문의해 주세요.', 'error');
+      return;
+    }
+
+    e.preventDefault();
+    submitBtn.disabled = true;
+    setStatus('보내는 중입니다...');
+
+    fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: { Accept: 'application/json' }
+    })
+      .then(function (res) {
+        if (res.ok) {
+          form.reset();
+          setStatus('문의가 접수되었습니다. 영업일 기준으로 순차적으로 답변드리겠습니다.', 'ok');
+        } else {
+          setStatus('전송에 실패했습니다. 전화(010-6425-0543)로 문의해 주세요.', 'error');
+        }
+      })
+      .catch(function () {
+        setStatus('전송에 실패했습니다. 전화(010-6425-0543)로 문의해 주세요.', 'error');
+      })
+      .then(function () {
+        submitBtn.disabled = false;
+      });
+  });
 })();

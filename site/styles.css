@@ -367,3 +367,244 @@ li { list-style: none; }
   .room-cta { grid-template-columns: 1fr; }
   .room-cta .room-body { padding: 26px 24px 28px; }
 }
+
+/* ===========================================================
+   추가 컴포넌트 — 사진 자리 / 공실 / 요금 / 폼 / 하위 페이지
+   =========================================================== */
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+/* 채워야 할 자리 표시. 실제 값 입력 후 <span class="todo"> 태그를 지우면 강조가 사라집니다 */
+.todo {
+  background: #fff6d8;
+  color: #7a5b00;
+  border-radius: 6px;
+  padding: 1px 7px;
+  font-size: .95em;
+  box-shadow: inset 0 0 0 1px #f0dfa8;
+}
+
+/* ---------- 사진 자리 (실제 사진 넣으면 <img>로 교체) ---------- */
+.photo-slot {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 4px;
+  aspect-ratio: 4 / 3;
+  background: repeating-linear-gradient(45deg, #f7f9fc, #f7f9fc 10px, #f2f5fa 10px, #f2f5fa 20px);
+  border: 1.5px dashed #cfd8e6;
+  border-radius: var(--r-md);
+  color: var(--ink-3);
+  text-align: center;
+  padding: 16px;
+}
+.photo-slot svg {
+  width: 30px; height: 30px;
+  fill: none; stroke: #a9b6cc; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round;
+  margin-bottom: 2px;
+}
+.photo-slot span { font-size: 14px; font-weight: 700; color: var(--ink-2); }
+.photo-slot small { font-size: 12px; color: #97a1b2; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+.photo-slot-tall { aspect-ratio: 4 / 5; border-radius: var(--r-lg); }
+
+.hero-photo { min-width: 0; }
+.room-img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+
+.gallery {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
+  margin-bottom: 40px;
+}
+
+.sub-head { font-size: 20px; margin: 48px 0 18px; }
+
+/* ---------- 공실 현황 ---------- */
+.section-tight { padding: 0 0 24px; }
+
+.vacancy-box {
+  background: #fff; border: 1px solid var(--line); border-radius: var(--r-lg);
+  padding: 26px 30px; box-shadow: var(--shadow-md);
+}
+.vacancy-head { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.vacancy-head h2 { font-size: 19px; }
+.vac-date { font-size: 13px; color: var(--ink-3); }
+
+.vacancy-list {
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px;
+  margin-top: 18px;
+}
+.vacancy-list li {
+  display: flex; flex-direction: column; align-items: flex-start; gap: 7px;
+  background: var(--bg-tint); border-radius: var(--r-sm); padding: 14px 16px;
+}
+.vacancy-list strong { font-size: 15px; }
+
+.vac {
+  display: inline-block;
+  font-size: 12px; font-weight: 700;
+  padding: 4px 10px; border-radius: var(--r-pill);
+  white-space: nowrap;
+}
+.vac-open { background: #e6f7ec; color: #127a3d; }
+.vac-ask  { background: var(--brand-soft); color: var(--brand); }
+.vac-full { background: #eef0f4; color: #7a828f; }
+
+.vacancy-note { margin-top: 16px; font-size: 14px; color: var(--ink-3); }
+.vacancy-note a { color: var(--brand); font-weight: 700; }
+
+.room-title { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+
+/* ---------- 요금표 ---------- */
+.price-wrap {
+  background: #fff; border: 1px solid var(--line); border-radius: var(--r-lg);
+  padding: 10px 10px 26px; box-shadow: var(--shadow-sm); overflow: hidden;
+}
+.price-table { width: 100%; border-collapse: collapse; font-size: 15px; }
+.price-table th, .price-table td { padding: 15px 18px; text-align: left; }
+.price-table thead th {
+  font-size: 13px; color: var(--ink-3); font-weight: 500;
+  border-bottom: 1px solid var(--line);
+}
+.price-table tbody th { font-weight: 700; }
+.price-table tbody tr + tr th, .price-table tbody tr + tr td { border-top: 1px solid #f1f3f7; }
+.price-table tbody td:nth-child(2) { font-weight: 700; font-variant-numeric: tabular-nums; }
+.price-table tbody td:last-child { color: var(--ink-3); font-size: 14px; }
+.price-table a { color: var(--brand); font-weight: 500; }
+
+.price-terms {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px;
+  margin: 22px 18px 0;
+}
+.price-terms li {
+  display: flex; flex-direction: column; gap: 6px; align-items: flex-start;
+  background: var(--bg-tint); border-radius: var(--r-sm); padding: 14px 16px;
+}
+.price-terms strong { font-size: 13px; color: var(--ink-3); font-weight: 500; }
+.price-note { margin: 18px 18px 0; font-size: 13px; color: var(--ink-3); }
+
+/* ---------- 문의 폼 ---------- */
+.contact-grid { display: grid; grid-template-columns: 1.25fr .75fr; gap: 22px; align-items: start; }
+
+.contact-form, .contact-side {
+  background: #fff; border: 1px solid var(--line); border-radius: var(--r-lg);
+  padding: 30px; box-shadow: var(--shadow-sm);
+}
+.contact-form { display: grid; gap: 20px; }
+
+.field { display: grid; gap: 8px; }
+.field label { font-size: 14px; font-weight: 700; }
+.req {
+  font-size: 11px; font-weight: 700; color: var(--brand);
+  background: var(--brand-soft); border-radius: var(--r-pill); padding: 2px 8px;
+  margin-left: 4px; vertical-align: 1px;
+}
+.field input[type="text"], .field textarea {
+  width: 100%;
+  font: inherit; font-size: 15px; color: var(--ink);
+  background: #fff;
+  border: 1px solid var(--line); border-radius: var(--r-sm);
+  padding: 13px 15px;
+  transition: border-color .15s ease, box-shadow .15s ease;
+}
+.field input[type="text"]::placeholder, .field textarea::placeholder { color: #aab2c0; }
+.field input[type="text"]:focus, .field textarea:focus {
+  outline: none;
+  border-color: var(--brand);
+  box-shadow: 0 0 0 3px rgba(31, 94, 255, .14);
+}
+.field textarea { resize: vertical; min-height: 130px; line-height: 1.65; }
+
+.field-check { grid-template-columns: auto 1fr; align-items: start; gap: 10px; }
+.field-check input { width: 19px; height: 19px; margin-top: 2px; accent-color: var(--brand); flex-shrink: 0; }
+.field-check label { font-size: 14px; font-weight: 400; color: var(--ink-2); }
+.field-check a { color: var(--brand); font-weight: 500; text-decoration: underline; text-underline-offset: 3px; }
+
+.gotcha { position: absolute; left: -9999px; opacity: 0; height: 0; width: 0; }
+
+.form-status { font-size: 14px; min-height: 1px; }
+.form-status.is-ok { color: #127a3d; }
+.form-status.is-error { color: #c62828; }
+.form-note { font-size: 12.5px; color: var(--ink-3); line-height: 1.6; }
+.form-note a { color: var(--ink-2); text-decoration: underline; text-underline-offset: 2px; }
+
+.contact-side { display: grid; gap: 10px; align-content: start; }
+.contact-side h3 { font-size: 18px; }
+.contact-side > p { font-size: 14px; color: var(--ink-3); margin-bottom: 6px; }
+.contact-side .quick-list { margin-top: 12px; }
+
+/* ---------- 하위 페이지 ---------- */
+.page-hero {
+  padding: 56px 0 60px;
+  background: radial-gradient(900px 420px at 15% -20%, #eef3ff 0%, rgba(255,255,255,0) 60%), #fff;
+}
+.page-hero-sm { padding: 44px 0 36px; }
+.page-hero h1 { font-size: clamp(28px, 4vw, 42px); font-weight: 700; margin-top: 6px; }
+.page-hero .lead { max-width: 56ch; }
+
+.crumb { font-size: 13px; color: var(--ink-3); margin-bottom: 18px; }
+.crumb a { color: var(--ink-2); }
+.crumb a:hover { color: var(--brand); }
+.crumb span { margin: 0 6px; color: #c3c9d4; }
+
+.detail-list { display: grid; gap: 16px; }
+.detail {
+  display: grid; grid-template-columns: 48px 1fr; gap: 20px;
+  background: #fff; border: 1px solid var(--line); border-radius: var(--r-lg);
+  padding: 28px 30px; box-shadow: var(--shadow-sm);
+}
+.detail-no {
+  display: grid; place-items: center;
+  width: 38px; height: 38px; border-radius: 13px;
+  background: var(--brand-soft); color: var(--brand);
+  font-weight: 700; font-size: 14px;
+}
+.detail h3 { font-size: 19px; }
+.detail p { margin-top: 8px; color: var(--ink-2); font-size: 15px; }
+.detail .tick { margin-top: 14px; }
+.detail-note { font-size: 14px !important; color: var(--ink-3) !important; }
+
+.doc { max-width: 780px; display: grid; gap: 34px; }
+.doc-item h2 { font-size: 19px; margin-bottom: 10px; }
+.doc-item p { color: var(--ink-2); font-size: 15px; }
+.doc-item .tick { margin-top: 10px; }
+.doc-item .info-list { margin-top: 12px; }
+.doc-item .price-wrap { margin-top: 14px; }
+.doc-note { margin-top: 12px !important; font-size: 13.5px !important; color: var(--ink-3) !important; }
+
+.footer-links { display: flex; flex-wrap: wrap; gap: 8px 20px; font-size: 14px; }
+.footer-links a { color: var(--ink-2); }
+.footer-links a:hover { color: var(--brand); }
+
+/* ---------- 반응형 ---------- */
+@media (max-width: 1024px) {
+  .vacancy-list { grid-template-columns: repeat(3, 1fr); }
+  .gallery { grid-template-columns: repeat(2, 1fr); }
+  .contact-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 760px) {
+  .vacancy-box { padding: 22px; }
+  .vacancy-list { grid-template-columns: 1fr 1fr; }
+  .vacancy-list li { flex-direction: row; align-items: center; justify-content: space-between; }
+
+  .price-wrap { padding: 6px 6px 22px; }
+  .price-table { font-size: 14px; }
+  .price-table th, .price-table td { padding: 13px 12px; }
+  .price-terms { margin: 18px 12px 0; }
+  .price-note { margin: 14px 12px 0; }
+
+  .contact-form, .contact-side { padding: 24px; }
+  .detail { grid-template-columns: 1fr; gap: 14px; padding: 24px; }
+  .page-hero { padding: 40px 0 44px; }
+
+  /* 모바일 가로형 호실 카드에서 사진 자리 비율 조정 */
+  .room .photo-slot { aspect-ratio: 1 / 1; border: none; border-radius: 0; height: 100%; }
+  .room .photo-slot small { display: none; }
+}
+
+@media (max-width: 420px) {
+  .vacancy-list { grid-template-columns: 1fr; }
+  .gallery { grid-template-columns: 1fr; }
+}
