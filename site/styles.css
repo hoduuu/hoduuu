@@ -608,3 +608,17 @@ li { list-style: none; }
   .vacancy-list { grid-template-columns: 1fr; }
   .gallery { grid-template-columns: 1fr; }
 }
+
+/* 요금표로 보내는 안내 박스 (비상주 페이지) */
+.price-link-box {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px;
+  background: #fff; border: 1px solid var(--line); border-radius: var(--r-lg);
+  padding: 30px 34px; box-shadow: var(--shadow-sm);
+}
+.price-link-box h2 { font-size: 21px; }
+.price-link-box p { margin-top: 8px; color: var(--ink-2); font-size: 15px; }
+
+@media (max-width: 760px) {
+  .price-link-box { padding: 24px; }
+  .price-link-box .btn { width: 100%; }
+}
