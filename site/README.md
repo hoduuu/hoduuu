@@ -48,21 +48,22 @@ script.js           # 모바일 메뉴, 스크롤 효과, 문의 폼 전송
 
 ### 4. 사진 (완료)
 
-`images/` 폴더에 실사진이 들어가 있습니다. 아래 자리에 연결되어 있습니다.
+공간 안내 / 시설 안내 모두 **카드수첩(가로 스크롤 사진 카드)** 형태입니다.
+설명 문장이나 "권장 인원" 같은 텍스트 없이 사진 + 이름표만 보여줍니다.
 
 ```
 hero.jpg      히어로 배너 (라운지, Ace Business Center 로고 벽면)
-room-1.jpg    1인실 내부 (2~5인실은 아직 사진이 없어 도면 그대로 둠)
-meeting.jpg   회의실 (#facility 갤러리)
-lounge.jpg    라운지 (#facility 갤러리)
-rooftop.jpg   루프탑 테라스 (#facility 갤러리, 원래 '복도' 자리를 대체)
+room-1.jpg    1인실 카드 (2~5인실은 아직 사진이 없어 placeholder 그대로)
+meeting.jpg   회의실 카드 (#facility)
+lounge.jpg    라운지 카드 (#facility)
+rooftop.jpg   루프탑 테라스 카드 (#facility)
 mailroom.jpg  우편함 (virtual-office.html 02번 항목)
 ```
 
-사진을 바꾸거나 추가하려면 같은 파일명으로 덮어쓰면 됩니다.
-2~5인실 사진이 생기면 `index.html` 의 `room-2.jpg` ~ `room-5.jpg` 자리(도면 SVG)를
-1인실과 같은 방식(`<img class="room-img" src="images/room-2.jpg" ... />`)으로 바꿔주세요.
-건물 외관도 마찬가지로 `images/building.jpg` 자리에 넣을 수 있습니다.
+사진을 바꾸려면 같은 파일명으로 덮어쓰면 됩니다.
+2~5인실이나 건물 외관 사진이 생기면, `index.html` 에서 해당 `<figure class="album-card">`
+안의 `<div class="album-placeholder">...</div>` 블록을
+`<img src="images/room-2.jpg" alt="2인실 내부" loading="lazy" />` 로 바꿔주세요.
 
 ### 5. 네이버 플레이스 연결
 
