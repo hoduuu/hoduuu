@@ -51,23 +51,27 @@
     var next = wrap.querySelector('.album-next');
     if (!track || !prev || !next) return;
 
+    var eps = 8; // 카드 그림자용 padding만큼의 오차 허용
+
     var scrollByCard = function (dir) {
+      var max = track.scrollWidth - track.clientWidth;
+
+      // 끝에서 다음, 처음에서 이전 클릭 시 반대쪽 끝으로 순환
+      if (dir > 0 && track.scrollLeft >= max - eps) {
+        track.scrollTo({ left: 0, behavior: 'smooth' });
+        return;
+      }
+      if (dir < 0 && track.scrollLeft <= eps) {
+        track.scrollTo({ left: max, behavior: 'smooth' });
+        return;
+      }
+
       var card = track.querySelector('.album-card');
       var step = card ? card.getBoundingClientRect().width + 18 : track.clientWidth * 0.8;
       track.scrollBy({ left: dir * step, behavior: 'smooth' });
     };
     prev.addEventListener('click', function () { scrollByCard(-1); });
     next.addEventListener('click', function () { scrollByCard(1); });
-
-    var updateButtons = function () {
-      var eps = 8; // 카드 그림자용 padding만큼의 오차 허용
-      var max = track.scrollWidth - track.clientWidth;
-      prev.disabled = track.scrollLeft <= eps;
-      next.disabled = track.scrollLeft >= max - eps;
-    };
-    updateButtons();
-    track.addEventListener('scroll', updateButtons, { passive: true });
-    window.addEventListener('resize', updateButtons);
   });
 
   // ---- 문의 폼 (Formspree) ----

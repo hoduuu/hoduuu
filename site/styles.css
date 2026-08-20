@@ -401,9 +401,9 @@ li { list-style: none; }
 }
 .price-table tbody th { font-weight: 700; }
 .price-table tbody tr + tr th, .price-table tbody tr + tr td { border-top: 1px solid #f1f3f7; }
-.price-table tbody td:nth-child(2) { font-weight: 700; font-variant-numeric: tabular-nums; }
-.price-table tbody td:last-child { color: var(--ink-3); font-size: 14px; }
+.price-table tbody td { font-weight: 700; font-variant-numeric: tabular-nums; }
 .price-table a { color: var(--brand); font-weight: 500; }
+.price-vat { font-weight: 400; font-size: 13px; color: var(--ink-3); margin-left: 4px; white-space: nowrap; }
 
 .price-terms {
   display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px;
@@ -641,7 +641,6 @@ li { list-style: none; }
 .album-nav svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
 .album-prev { left: -20px; }
 .album-next { right: -20px; }
-.album-nav[disabled] { opacity: 0; pointer-events: none; }
 .album-wrap .card-album { scroll-behavior: smooth; }
 
 @media (max-width: 760px) {
