@@ -411,7 +411,7 @@ li { list-style: none; }
 .photo-slot-tall { aspect-ratio: 4 / 5; border-radius: var(--r-lg); }
 
 .hero-photo { min-width: 0; }
-.room-img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+.room-img { display: block; width: 100%; height: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
 
 .gallery {
   display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
@@ -621,4 +621,33 @@ li { list-style: none; }
 @media (max-width: 760px) {
   .price-link-box { padding: 24px; }
   .price-link-box .btn { width: 100%; }
+}
+
+/* ---------- 히어로 배너 사진 ---------- */
+.hero-banner {
+  margin-top: 40px;
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  aspect-ratio: 2 / 1;
+}
+.hero-banner img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* ---------- 실사진이 들어간 photo-slot / room-img ---------- */
+.photo-slot:has(img) {
+  padding: 0; border: none; background: none;
+  aspect-ratio: 4 / 3; overflow: hidden;
+}
+/* ---------- 비상주 페이지: 우편함 상세 항목의 사진 ---------- */
+.detail-with-photo { display: grid; grid-template-columns: 1fr 220px; gap: 24px; align-items: start; }
+.detail-photo {
+  border-radius: var(--r-md); overflow: hidden; box-shadow: var(--shadow-sm);
+  aspect-ratio: 4 / 3;
+}
+.detail-photo img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+@media (max-width: 760px) {
+  .hero-banner { margin-top: 28px; aspect-ratio: 4 / 3; }
+  .detail-with-photo { grid-template-columns: 1fr; }
+  .detail-photo { max-width: 320px; }
 }

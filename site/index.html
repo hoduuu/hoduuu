@@ -10,9 +10,8 @@
 <meta property="og:title" content="에이스원비즈니스센터" />
 <meta property="og:description" content="영등포 에이스하이테크시티 독립형 사무실 · 비상주 서비스 · 회의실" />
 <meta property="og:type" content="website" />
-<!-- TODO: 카톡/SNS 공유 썸네일. 건물 외관 또는 라운지 사진(1200x630)을 images/og.jpg 로 넣고 아래 주석 해제
-<meta property="og:image" content="images/og.jpg" />
-<meta property="og:url" content="https://실제도메인/" /> -->
+<meta property="og:image" content="images/hero.jpg" />
+<!-- TODO: 실제 도메인이 정해지면 og:url 추가 -->
 <meta name="theme-color" content="#ffffff" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -95,13 +94,10 @@
         </ul>
       </div>
 
-      <!-- 사진 자리: 건물 외관 또는 라운지 대표컷 -->
-      <div class="hero-photo reveal">
-        <div class="photo-slot photo-slot-tall">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h4l2-3h6l2 3h4v13H3z"/><circle cx="12" cy="13" r="4"/></svg>
-          <span>대표 사진</span>
-          <small>images/hero.jpg</small>
-        </div>
+    </div>
+    <div class="wrap">
+      <div class="hero-banner reveal">
+        <img src="images/hero.jpg" alt="에이스원비즈니스센터 라운지" loading="eager" />
       </div>
     </div>
   </section>
@@ -191,9 +187,7 @@
       <div class="rooms">
         <article class="room reveal">
           <div class="photo-slot">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h4l2-3h6l2 3h4v13H3z"/><circle cx="12" cy="13" r="4"/></svg>
-            <span>1인실 내부</span>
-            <small>images/room-1.jpg</small>
+            <img class="room-img" src="images/room-1.jpg" alt="1인실 내부" loading="lazy" />
           </div>
           <div class="room-body">
             <h3>1인실</h3>
@@ -279,16 +273,13 @@
 
       <div class="gallery">
         <div class="photo-slot reveal">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h4l2-3h6l2 3h4v13H3z"/><circle cx="12" cy="13" r="4"/></svg>
-          <span>회의실</span><small>images/meeting.jpg</small>
+          <img class="room-img" src="images/meeting.jpg" alt="회의실" loading="lazy" />
         </div>
         <div class="photo-slot reveal">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h4l2-3h6l2 3h4v13H3z"/><circle cx="12" cy="13" r="4"/></svg>
-          <span>라운지</span><small>images/lounge.jpg</small>
+          <img class="room-img" src="images/lounge.jpg" alt="라운지" loading="lazy" />
         </div>
         <div class="photo-slot reveal">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h4l2-3h6l2 3h4v13H3z"/><circle cx="12" cy="13" r="4"/></svg>
-          <span>복도 · 출입구</span><small>images/corridor.jpg</small>
+          <img class="room-img" src="images/rooftop.jpg" alt="루프탑 테라스" loading="lazy" />
         </div>
         <div class="photo-slot reveal">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h4l2-3h6l2 3h4v13H3z"/><circle cx="12" cy="13" r="4"/></svg>

@@ -46,20 +46,23 @@ script.js           # 모바일 메뉴, 스크롤 효과, 문의 폼 전송
 
 연결 전까지는 제출 시 "폼이 아직 연결되지 않았습니다" 안내가 뜨고 전송되지 않습니다.
 
-### 4. 사진 넣기
+### 4. 사진 (완료)
 
-`images/` 폴더를 만들고 아래 파일명으로 넣은 뒤, 각 자리의 `.photo-slot` div를
-`<img class="room-img" src="images/room-1.jpg" alt="1인실 내부" loading="lazy" />` 로 교체합니다.
+`images/` 폴더에 실사진이 들어가 있습니다. 아래 자리에 연결되어 있습니다.
 
 ```
-hero.jpg      대표 사진 (건물 외관 또는 라운지)
-room-1~5.jpg  1~5인실 내부
-meeting.jpg   회의실
-lounge.jpg    라운지
-corridor.jpg  복도·출입구
-building.jpg  건물 외관
-og.jpg        카톡 공유 썸네일 (1200x630) — index.html 의 og:image 주석도 해제
+hero.jpg      히어로 배너 (라운지, Ace Business Center 로고 벽면)
+room-1.jpg    1인실 내부 (2~5인실은 아직 사진이 없어 도면 그대로 둠)
+meeting.jpg   회의실 (#facility 갤러리)
+lounge.jpg    라운지 (#facility 갤러리)
+rooftop.jpg   루프탑 테라스 (#facility 갤러리, 원래 '복도' 자리를 대체)
+mailroom.jpg  우편함 (virtual-office.html 02번 항목)
 ```
+
+사진을 바꾸거나 추가하려면 같은 파일명으로 덮어쓰면 됩니다.
+2~5인실 사진이 생기면 `index.html` 의 `room-2.jpg` ~ `room-5.jpg` 자리(도면 SVG)를
+1인실과 같은 방식(`<img class="room-img" src="images/room-2.jpg" ... />`)으로 바꿔주세요.
+건물 외관도 마찬가지로 `images/building.jpg` 자리에 넣을 수 있습니다.
 
 ### 5. 네이버 플레이스 연결
 
