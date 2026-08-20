@@ -44,6 +44,32 @@
   var year = document.getElementById('year');
   if (year) year.textContent = String(new Date().getFullYear());
 
+  // ---- 카드수첩 좌우 화살표 ----
+  document.querySelectorAll('.album-wrap').forEach(function (wrap) {
+    var track = wrap.querySelector('.card-album');
+    var prev = wrap.querySelector('.album-prev');
+    var next = wrap.querySelector('.album-next');
+    if (!track || !prev || !next) return;
+
+    var scrollByCard = function (dir) {
+      var card = track.querySelector('.album-card');
+      var step = card ? card.getBoundingClientRect().width + 18 : track.clientWidth * 0.8;
+      track.scrollBy({ left: dir * step, behavior: 'smooth' });
+    };
+    prev.addEventListener('click', function () { scrollByCard(-1); });
+    next.addEventListener('click', function () { scrollByCard(1); });
+
+    var updateButtons = function () {
+      var eps = 8; // 카드 그림자용 padding만큼의 오차 허용
+      var max = track.scrollWidth - track.clientWidth;
+      prev.disabled = track.scrollLeft <= eps;
+      next.disabled = track.scrollLeft >= max - eps;
+    };
+    updateButtons();
+    track.addEventListener('scroll', updateButtons, { passive: true });
+    window.addEventListener('resize', updateButtons);
+  });
+
   // ---- 문의 폼 (Formspree) ----
   // 페이지 이동 없이 그 자리에서 전송하고 결과 메시지를 보여줍니다.
   var form = document.getElementById('contactForm');

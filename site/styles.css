@@ -623,3 +623,30 @@ li { list-style: none; }
 @media (max-width: 760px) {
   .album-card { width: 68vw; max-width: 240px; }
 }
+
+/* ---------- 카드수첩 좌우 화살표 내비게이션 ---------- */
+.album-wrap { position: relative; }
+.album-nav {
+  position: absolute; top: 40%; translate: 0 -50%;
+  z-index: 3;
+  width: 40px; height: 40px;
+  display: grid; place-items: center;
+  background: #fff; border: 1px solid var(--line); border-radius: 50%;
+  box-shadow: var(--shadow-md);
+  color: var(--ink-2);
+  cursor: pointer;
+  transition: opacity .15s ease, box-shadow .15s ease, color .15s ease;
+}
+.album-nav:hover { color: var(--brand); box-shadow: var(--shadow-lg); }
+.album-nav svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.album-prev { left: -20px; }
+.album-next { right: -20px; }
+.album-nav[disabled] { opacity: 0; pointer-events: none; }
+.album-wrap .card-album { scroll-behavior: smooth; }
+
+@media (max-width: 760px) {
+  .album-prev { left: -8px; }
+  .album-next { right: -8px; }
+  .album-nav { width: 36px; height: 36px; }
+  .album-nav svg { width: 18px; height: 18px; }
+}
