@@ -291,7 +291,6 @@ li { list-style: none; }
 @media (max-width: 1024px) {
   .hero-inner { grid-template-columns: 1fr; gap: 32px; }
   .cards-3 { grid-template-columns: 1fr 1fr; }
-  .rooms { grid-template-columns: 1fr 1fr; }
   .facility-grid { grid-template-columns: repeat(2, 1fr); }
   .steps { grid-template-columns: 1fr 1fr; }
   .location { grid-template-columns: 1fr; }
@@ -312,8 +311,8 @@ li { list-style: none; }
 
   .hero { padding: 48px 0 60px; }
   .section { padding: 60px 0; }
-  .cards-3, .rooms, .steps { grid-template-columns: 1fr; }
-  .card, .hero-card, .location-info { padding: 24px; }
+  .cards-3, .steps { grid-template-columns: 1fr; }
+  .card, .location-info { padding: 24px; }
   .contact-band { padding: 32px 24px; }
   .fab { display: grid; }
   .site-footer { padding-bottom: 90px; }
@@ -322,17 +321,7 @@ li { list-style: none; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .reveal { opacity: 1; transform: none; transition: none; }
-  .btn:hover, .card:hover, .room:hover { transform: none; }
-}
-
-/* 모바일: 공간 안내 카드를 가로형으로 압축 */
-@media (max-width: 760px) {
-  .room { display: grid; grid-template-columns: 132px 1fr; align-items: center; }
-  .room-plan { padding: 14px; height: 100%; display: grid; align-items: center; }
-  .room-body { padding: 18px 20px; }
-  .room-body h3 { font-size: 18px; }
-  .room-cta { grid-template-columns: 1fr; }
-  .room-cta .room-body { padding: 26px 24px 28px; }
+  .btn:hover, .card:hover { transform: none; }
 }
 
 /* ===========================================================
@@ -371,17 +360,7 @@ li { list-style: none; }
 .price-table a { color: var(--brand); font-weight: 500; }
 .price-vat { font-weight: 400; font-size: 13px; color: var(--ink-3); margin-left: 4px; white-space: nowrap; }
 
-.price-terms {
-  display: flex; flex-wrap: wrap; gap: 12px;
-  margin: 22px 18px 0;
-}
-.price-terms li {
-  flex: 0 1 220px;
-  display: flex; flex-direction: column; gap: 6px; align-items: flex-start;
-  background: var(--bg-tint); border-radius: var(--r-sm); padding: 14px 16px;
-}
-.price-terms strong { font-size: 13px; color: var(--ink-3); font-weight: 500; }
-.price-note { margin: 18px 18px 0; font-size: 13px; color: var(--ink-3); }
+.price-note { margin: 22px 18px 0; font-size: 13px; color: var(--ink-3); }
 
 /* ---------- 문의 폼 ---------- */
 .contact-grid { display: grid; grid-template-columns: 1.25fr .75fr; gap: 22px; align-items: start; }
@@ -478,34 +457,18 @@ li { list-style: none; }
 
 /* ---------- 반응형 ---------- */
 @media (max-width: 1024px) {
-  .vacancy-list { grid-template-columns: repeat(3, 1fr); }
-  .gallery { grid-template-columns: repeat(2, 1fr); }
   .contact-grid { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 760px) {
-  .vacancy-box { padding: 22px; }
-  .vacancy-list { grid-template-columns: 1fr 1fr; }
-  .vacancy-list li { flex-direction: row; align-items: center; justify-content: space-between; }
-
   .price-wrap { padding: 6px 6px 22px; }
   .price-table { font-size: 14px; }
   .price-table th, .price-table td { padding: 13px 12px; }
-  .price-terms { margin: 18px 12px 0; }
   .price-note { margin: 14px 12px 0; }
 
   .contact-form, .contact-side { padding: 24px; }
   .detail { grid-template-columns: 1fr; gap: 14px; padding: 24px; }
   .page-hero { padding: 40px 0 44px; }
-
-  /* 모바일 가로형 호실 카드에서 사진 자리 비율 조정 */
-  .room .photo-slot { aspect-ratio: 1 / 1; border: none; border-radius: 0; height: 100%; }
-  .room .photo-slot small { display: none; }
-}
-
-@media (max-width: 420px) {
-  .vacancy-list { grid-template-columns: 1fr; }
-  .gallery { grid-template-columns: 1fr; }
 }
 
 /* 요금표로 보내는 안내 박스 (비상주 페이지) */
