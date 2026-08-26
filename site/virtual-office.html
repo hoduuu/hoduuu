@@ -88,21 +88,98 @@
       <header class="section-head reveal">
         <h2>이용 요금</h2>
       </header>
-      <div class="price-wrap reveal">
-        <table class="price-table">
-          <caption class="sr-only">비상주 서비스 이용료</caption>
-          <thead>
-            <tr><th scope="col">구분</th><th scope="col">이용료</th></tr>
-          </thead>
-          <tbody>
-            <tr><th scope="row">개인사업자</th><td>월 8만원 · 6개월 24만원 · 1년 36만원</td></tr>
-            <tr><th scope="row">법인사업자</th><td>월 12만원 · 6개월 36만원 · 1년 60만원</td></tr>
-          </tbody>
-        </table>
-        <p class="price-note">
-          부가세 별도이며, 최소 6개월부터 계약 가능합니다. 예치금은 월정가와 동일합니다.
-        </p>
+      <div class="plan-tabs reveal" role="tablist" aria-label="사업자 유형">
+        <button type="button" class="plan-tab is-active" data-plan-target="plan-individual" role="tab" aria-selected="true">개인사업자</button>
+        <button type="button" class="plan-tab" data-plan-target="plan-corporate" role="tab" aria-selected="false">법인사업자</button>
       </div>
+
+      <div class="plan-cards reveal" id="plan-individual" role="tabpanel">
+        <div class="plan-card">
+          <p class="plan-period">월 계약</p>
+          <p class="plan-price">80,000<span>원 / 월</span></p>
+          <p class="plan-monthly">자유롭게 이용</p>
+          <div class="plan-divider"></div>
+          <ul class="plan-benefits">
+            <li>사업장 주소 제공</li>
+            <li>우편물 수령</li>
+            <li>회의실 월 <strong>2시간 무료</strong></li>
+          </ul>
+          <a class="btn btn-ghost btn-block plan-cta" href="./index.html#contact">상담하기</a>
+        </div>
+
+        <div class="plan-card">
+          <p class="plan-period">6개월 계약</p>
+          <p class="plan-price">240,000<span>원</span></p>
+          <p class="plan-monthly">월 40,000원</p>
+          <div class="plan-divider"></div>
+          <ul class="plan-benefits">
+            <li>사업장 주소 제공</li>
+            <li>우편물 수령</li>
+            <li>회의실 월 <strong>2시간 무료</strong></li>
+          </ul>
+          <a class="btn btn-ghost btn-block plan-cta" href="./index.html#contact">상담하기</a>
+        </div>
+
+        <div class="plan-card is-recommended">
+          <p class="plan-badge">가장 경제적인 플랜</p>
+          <p class="plan-period">1년 계약</p>
+          <p class="plan-price">360,000<span>원</span></p>
+          <p class="plan-monthly">월 30,000원</p>
+          <div class="plan-divider"></div>
+          <ul class="plan-benefits">
+            <li>사업장 주소 제공</li>
+            <li>우편물 수령</li>
+            <li>회의실 월 <strong>2시간 무료</strong></li>
+          </ul>
+          <a class="btn btn-primary btn-block plan-cta" href="./index.html#contact">상담하기</a>
+        </div>
+      </div>
+
+      <div class="plan-cards" id="plan-corporate" role="tabpanel" hidden>
+        <div class="plan-card">
+          <p class="plan-period">월 계약</p>
+          <p class="plan-price">120,000<span>원 / 월</span></p>
+          <p class="plan-monthly">자유롭게 이용</p>
+          <div class="plan-divider"></div>
+          <ul class="plan-benefits">
+            <li>사업장 주소 제공</li>
+            <li>우편물 수령</li>
+            <li>회의실 월 <strong>2시간 무료</strong></li>
+          </ul>
+          <a class="btn btn-ghost btn-block plan-cta" href="./index.html#contact">상담하기</a>
+        </div>
+
+        <div class="plan-card">
+          <p class="plan-period">6개월 계약</p>
+          <p class="plan-price">360,000<span>원</span></p>
+          <p class="plan-monthly">월 60,000원</p>
+          <div class="plan-divider"></div>
+          <ul class="plan-benefits">
+            <li>사업장 주소 제공</li>
+            <li>우편물 수령</li>
+            <li>회의실 월 <strong>2시간 무료</strong></li>
+          </ul>
+          <a class="btn btn-ghost btn-block plan-cta" href="./index.html#contact">상담하기</a>
+        </div>
+
+        <div class="plan-card is-recommended">
+          <p class="plan-badge">가장 경제적인 플랜</p>
+          <p class="plan-period">1년 계약</p>
+          <p class="plan-price">600,000<span>원</span></p>
+          <p class="plan-monthly">월 50,000원</p>
+          <div class="plan-divider"></div>
+          <ul class="plan-benefits">
+            <li>사업장 주소 제공</li>
+            <li>우편물 수령</li>
+            <li>회의실 월 <strong>2시간 무료</strong></li>
+          </ul>
+          <a class="btn btn-primary btn-block plan-cta" href="./index.html#contact">상담하기</a>
+        </div>
+      </div>
+
+      <p class="price-note plan-note">
+        부가세 별도이며, 최소 6개월부터 계약 가능합니다. 예치금은 월정가와 동일합니다.
+      </p>
     </div>
   </section>
 

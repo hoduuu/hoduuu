@@ -74,6 +74,25 @@
     next.addEventListener('click', function () { scrollByCard(1); });
   });
 
+  // ---- 요금 플랜 탭 (개인/법인) ----
+  document.querySelectorAll('.plan-tabs').forEach(function (tabs) {
+    tabs.querySelectorAll('.plan-tab').forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        tabs.querySelectorAll('.plan-tab').forEach(function (t) {
+          t.classList.remove('is-active');
+          t.setAttribute('aria-selected', 'false');
+        });
+        tab.classList.add('is-active');
+        tab.setAttribute('aria-selected', 'true');
+
+        var target = tab.getAttribute('data-plan-target');
+        document.querySelectorAll('.plan-cards').forEach(function (panel) {
+          panel.hidden = panel.id !== target;
+        });
+      });
+    });
+  });
+
   // ---- 문의 폼 (Formspree) ----
   // 페이지 이동 없이 그 자리에서 전송하고 결과 메시지를 보여줍니다.
   var form = document.getElementById('contactForm');
