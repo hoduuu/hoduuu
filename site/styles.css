@@ -208,21 +208,6 @@ li { list-style: none; }
 .facility-grid strong { font-size: 16px; }
 .facility-grid em { font-style: normal; font-size: 14px; color: var(--ink-3); }
 
-/* ---------- Steps ---------- */
-.steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; counter-reset: step; }
-.steps li {
-  display: flex; align-items: center; gap: 14px;
-  background: #fff; border: 1px solid var(--line); border-radius: var(--r-lg);
-  padding: 20px 24px; box-shadow: var(--shadow-sm);
-}
-.step-no {
-  display: inline-grid; place-items: center;
-  width: 38px; height: 38px; border-radius: 13px;
-  background: var(--brand-soft); color: var(--brand);
-  font-weight: 700; font-size: 14px; flex-shrink: 0;
-}
-.steps h3 { font-size: 18px; }
-
 /* ---------- Location ---------- */
 .location { display: grid; grid-template-columns: 1.3fr .9fr; gap: 24px; align-items: stretch; }
 .map-box {
@@ -292,7 +277,6 @@ li { list-style: none; }
   .hero-inner { grid-template-columns: 1fr; gap: 32px; }
   .cards-3 { grid-template-columns: 1fr 1fr; }
   .facility-grid { grid-template-columns: repeat(2, 1fr); }
-  .steps { grid-template-columns: 1fr 1fr; }
   .location { grid-template-columns: 1fr; }
 }
 
@@ -311,7 +295,7 @@ li { list-style: none; }
 
   .hero { padding: 48px 0 60px; }
   .section { padding: 60px 0; }
-  .cards-3, .steps { grid-template-columns: 1fr; }
+  .cards-3 { grid-template-columns: 1fr; }
   .card, .location-info { padding: 24px; }
   .contact-band { padding: 32px 24px; }
   .fab { display: grid; }
