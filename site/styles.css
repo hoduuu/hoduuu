@@ -488,9 +488,18 @@ li { list-style: none; }
 .price-link-box h2 { font-size: 21px; }
 .price-link-box p { margin-top: 8px; color: var(--ink-2); font-size: 15px; }
 
+/* 이용 제한/유의사항 안내 박스 */
+.notice-box {
+  background: #fffaf0; border: 1px solid #f5deb0; border-radius: var(--r-lg);
+  padding: 22px 26px;
+}
+.notice-box h3 { font-size: 16px; color: #92610e; }
+.notice-box p { margin-top: 6px; font-size: 14px; color: #8a6a2f; line-height: 1.7; }
+
 @media (max-width: 760px) {
   .price-link-box { padding: 24px; }
   .price-link-box .btn { width: 100%; }
+  .notice-box { padding: 18px 20px; }
 }
 
 /* ---------- 히어로 배너 사진 ---------- */
