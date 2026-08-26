@@ -211,17 +211,17 @@ li { list-style: none; }
 /* ---------- Steps ---------- */
 .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; counter-reset: step; }
 .steps li {
+  display: flex; align-items: center; gap: 14px;
   background: #fff; border: 1px solid var(--line); border-radius: var(--r-lg);
-  padding: 28px 26px; box-shadow: var(--shadow-sm);
+  padding: 20px 24px; box-shadow: var(--shadow-sm);
 }
 .step-no {
   display: inline-grid; place-items: center;
   width: 38px; height: 38px; border-radius: 13px;
   background: var(--brand-soft); color: var(--brand);
-  font-weight: 700; font-size: 14px; margin-bottom: 14px;
+  font-weight: 700; font-size: 14px; flex-shrink: 0;
 }
 .steps h3 { font-size: 18px; }
-.steps p { margin-top: 8px; font-size: 15px; color: var(--ink-2); }
 
 /* ---------- Location ---------- */
 .location { display: grid; grid-template-columns: 1.3fr .9fr; gap: 24px; align-items: stretch; }
@@ -359,6 +359,16 @@ li { list-style: none; }
 .price-table tbody td { font-weight: 700; font-variant-numeric: tabular-nums; }
 .price-table a { color: var(--brand); font-weight: 500; }
 .price-vat { font-weight: 400; font-size: 13px; color: var(--ink-3); margin-left: 4px; white-space: nowrap; }
+
+/* 정가 + 할인가 2단 표기 (예: 1인실 연 계약 할인) */
+.price-table td .price-old,
+.price-table td .price-now { display: block; }
+.price-old {
+  font-weight: 400; font-size: 13px; color: var(--ink-3);
+  text-decoration: line-through; text-decoration-color: #c7cee0;
+}
+.price-now { font-weight: 500; font-size: 15px; color: var(--ink-2); margin-top: 2px; }
+.price-now strong { color: var(--brand); font-weight: 700; font-size: 18px; }
 
 .price-note { margin: 22px 18px 0; font-size: 13px; color: var(--ink-3); }
 
