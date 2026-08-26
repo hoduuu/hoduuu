@@ -328,10 +328,16 @@ li { list-style: none; }
 }
 
 /* ---------- 요금표 ---------- */
+.price-group + .price-group { margin-top: 24px; }
 .price-wrap {
   background: #fff; border: 1px solid var(--line); border-radius: var(--r-lg);
   padding: 10px 10px 26px; box-shadow: var(--shadow-sm); overflow: hidden;
 }
+.price-wrap-head { padding: 22px 22px 4px; }
+.price-wrap-head h3 { font-size: 19px; }
+.price-wrap-head h3 a { color: var(--brand); }
+.price-wrap-head h3 a:hover { color: var(--brand-dark); }
+.price-wrap-head p { margin-top: 6px; font-size: 14px; color: var(--ink-3); }
 .price-table { width: 100%; border-collapse: collapse; font-size: 15px; }
 .price-table th, .price-table td { padding: 15px 18px; text-align: left; }
 .price-table thead th {
@@ -456,6 +462,7 @@ li { list-style: none; }
 
 @media (max-width: 760px) {
   .price-wrap { padding: 6px 6px 22px; }
+  .price-wrap-head { padding: 18px 14px 4px; }
   .price-table { font-size: 14px; }
   .price-table th, .price-table td { padding: 13px 12px; }
   .price-note { margin: 14px 12px 0; }
