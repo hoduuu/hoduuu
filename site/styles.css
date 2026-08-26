@@ -211,10 +211,18 @@ li { list-style: none; }
 /* ---------- Location ---------- */
 .location { display: grid; grid-template-columns: 1.3fr .9fr; gap: 24px; align-items: stretch; }
 .map-box {
+  position: relative; display: block;
   border: 1px solid var(--line); border-radius: var(--r-lg); overflow: hidden;
   background: #fff; box-shadow: var(--shadow-sm);
+  transition: box-shadow .2s ease, transform .2s ease;
 }
+.map-box:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
 .map-box svg { display: block; width: 100%; height: auto; }
+.map-box-hint {
+  position: absolute; right: 14px; bottom: 14px;
+  background: #fff; color: var(--brand); font-size: 13px; font-weight: 700;
+  padding: 8px 14px; border-radius: var(--r-pill); box-shadow: var(--shadow-md);
+}
 .mp-bg { fill: #f4f7fc; }
 .mp-road { stroke: #dfe6f2; stroke-width: 22; fill: none; stroke-linecap: round; }
 .mp-road2 { stroke: #e9eefa; stroke-width: 12; fill: none; stroke-linecap: round; }
@@ -348,7 +356,6 @@ li { list-style: none; }
 .price-table tbody tr + tr th, .price-table tbody tr + tr td { border-top: 1px solid #f1f3f7; }
 .price-table tbody td { font-weight: 700; font-variant-numeric: tabular-nums; }
 .price-table a { color: var(--brand); font-weight: 500; }
-.price-vat { font-weight: 400; font-size: 13px; color: var(--ink-3); margin-left: 4px; white-space: nowrap; }
 
 /* 정가 + 할인가 2단 표기 (예: 1인실 연 계약 할인) */
 .price-table td .price-old,
