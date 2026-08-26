@@ -198,6 +198,7 @@ li { list-style: none; }
 
 /* ---------- Facility ---------- */
 .facility-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.facility-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
 .facility-grid li {
   background: #fff; border: 1px solid var(--line); border-radius: var(--r-md);
   padding: 22px; box-shadow: var(--shadow-sm);
@@ -283,7 +284,7 @@ li { list-style: none; }
 @media (max-width: 1024px) {
   .hero-inner { grid-template-columns: 1fr; gap: 32px; }
   .cards-3 { grid-template-columns: 1fr 1fr; }
-  .facility-grid { grid-template-columns: repeat(2, 1fr); }
+  .facility-grid, .facility-grid.cols-3 { grid-template-columns: repeat(2, 1fr); }
   .location { grid-template-columns: 1fr; }
 }
 
